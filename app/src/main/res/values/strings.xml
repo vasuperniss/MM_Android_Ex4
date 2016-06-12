@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">AMaze Android</string>
+    <string name="login_title">Log In</string>
     <string name="splash_message_1">first message</string>
     <string name="splash_message_2">second message</string>
     <string name="splash_message_3">third message</string>
     <string name="splash_message_4">forth message</string>
+    <string name="register_title">Register</string>
+    <string name="r_email">email :</string>
+    <string name="r_name">name :</string>
+    <string name="rl_password">password :</string>
+    <string name="rl_username">username :</string>
+    <string name="r_icon">icon :</string>
+    <string name="register_btn">Register</string>
+    <string name="logoDesc">logo</string>
 </resources>

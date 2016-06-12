@@ -7,8 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.amaze_ing.mm.amazeandroid.SplashScreenActivity"
-    android:background="@color/dim_foreground_disabled_material_dark">
+    tools:context="com.amaze_ing.mm.amazeandroid.SplashScreenActivity">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -16,7 +15,8 @@
             android:id="@+id/imageView"
             android:src="@drawable/mm_logo"
             android:layout_gravity="center"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/logoDesc" />
 
         <TextView
             android:layout_width="wrap_content"
