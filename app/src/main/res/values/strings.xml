@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AMaze Android</string>
+    <string name="splash_message_1">first message</string>
+    <string name="splash_message_2">second message</string>
+    <string name="splash_message_3">third message</string>
+    <string name="splash_message_4">forth message</string>
+</resources>
