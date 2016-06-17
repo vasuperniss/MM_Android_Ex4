@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:text="Register"
             android:id="@+id/button2"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:layout_alignTop="@+id/register_btn"
             android:layout_toLeftOf="@+id/register_btn"
             android:layout_toStartOf="@+id/register_btn"
