@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/NormalTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
@@ -62,22 +63,22 @@
             android:layout_height="wrap_content"
             android:text="Login"
             android:id="@+id/register_btn"
-            android:background="@color/colorPrimary"
             android:layout_below="@+id/r_password_txtfield"
             android:layout_alignRight="@+id/r_password_txtfield"
             android:layout_alignEnd="@+id/r_password_txtfield"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:theme="@style/NormalTheme.Button" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register"
             android:id="@+id/button2"
-            android:background="@color/colorPrimary"
             android:layout_alignTop="@+id/register_btn"
             android:layout_toLeftOf="@+id/register_btn"
             android:layout_toStartOf="@+id/register_btn"
             android:layout_marginRight="8dp"
-            android:onClick="goToRegister"/>
+            android:onClick="goToRegister"
+            android:theme="@style/NormalTheme.Button" />
     </RelativeLayout>
 </RelativeLayout>
