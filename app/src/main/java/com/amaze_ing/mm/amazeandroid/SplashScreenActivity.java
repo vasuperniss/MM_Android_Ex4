@@ -108,14 +108,14 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 // first startup -> go to tutorial
                                 Intent intent = new Intent(
                                         SplashScreenActivity.this,
-                                        TutorialActivity.class);
+                                        GuideActivity.class);
                                 startActivity(intent);
                             }
                             else{
                                 // not connected -> go to log in Activity
                                 Intent intent = new Intent(
                                         SplashScreenActivity.this,
-                                        LogInActivity.class);
+                                        GuideActivity.class);
                                 startActivity(intent);
                             }
                             // close the current Activity
