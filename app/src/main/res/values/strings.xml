@@ -17,4 +17,5 @@
     <string name="clear_btn">Clear</string>
     <string name="logoDesc">logo</string>
     <string name="register_err">Fill in all fields before submitting.</string>
+    <string name="title_activity_messages">MessagesActivity</string>
 </resources>
