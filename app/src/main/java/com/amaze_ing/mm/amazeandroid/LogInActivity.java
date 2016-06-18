@@ -37,9 +37,8 @@ public class LogInActivity extends AppCompatActivity {
                                                     password.getText().toString());
         if(username.getText().toString().equals("a") &&
                 password.getText().toString().equals("a")){
-
-            //Intent intent = new Intent(LogInActivity.this, MessagesActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(LogInActivity.this, MessagingActivity.class);
+            startActivity(intent);
         }
     }
 }
