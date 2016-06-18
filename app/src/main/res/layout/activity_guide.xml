@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".GuideActivity">
+    tools:context=".GuideActivity"
+    android:background="@drawable/turorial_background">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -94,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:backgroundTint="@color/colorPrimaryLight"
+        android:backgroundTint="@color/colorPrimary"
         app:borderWidth="0dp"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/next"

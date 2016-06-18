@@ -23,7 +23,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="guide_1">Welcome to the MM chat application.</string>
+    <string name="guide_1">Welcome to the MM chat application.\n
+                            This is a quick tuturial to get you started :)</string>
     <string name="guide_2">second guide message</string>
     <string name="guide_3">third guide message</string>
     <string name="guide_4">forth guide message</string>

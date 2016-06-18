@@ -1,6 +1,7 @@
 package com.amaze_ing.mm.amazeandroid;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -48,7 +50,8 @@ public class GuideActivity extends AppCompatActivity {
                 (RadioButton) findViewById(R.id.radio3),
                 (RadioButton) findViewById(R.id.radio4),
                 (RadioButton) findViewById(R.id.radio5) };
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), radioButtons);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), radioButtons,
+                (FloatingActionButton) findViewById(R.id.fab));
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -72,6 +75,7 @@ public class GuideActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String TEXT_KEY = "text";
+        private static final String IMG_KEY = "img";
 
         public GuideFragment() { }
 
@@ -79,10 +83,11 @@ public class GuideActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static GuideFragment newInstance(String text) {
+        public static GuideFragment newInstance(String text, int imgId) {
             GuideFragment fragment = new GuideFragment();
             Bundle args = new Bundle();
             args.putString(TEXT_KEY, text);
+            args.putInt(IMG_KEY, imgId);
             fragment.setArguments(args);
             return fragment;
         }
@@ -93,6 +98,8 @@ public class GuideActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_guide, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.guide_text);
             textView.setText(getArguments().getString(TEXT_KEY));
+            ImageView imgView = (ImageView) rootView.findViewById(R.id.guide_img);
+            imgView.setImageResource(getArguments().getInt(IMG_KEY));
             return rootView;
         }
     }
@@ -104,18 +111,20 @@ public class GuideActivity extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         private final RadioButton[] radioButtons;
+        private final FloatingActionButton fab;
         private Fragment[] fragments;
         private int currentPosition = 0;
 
-        public SectionsPagerAdapter(FragmentManager fm, RadioButton[] radioButtons) {
+        public SectionsPagerAdapter(FragmentManager fm, RadioButton[] radioButtons, FloatingActionButton fab) {
             super(fm);
             this.radioButtons = radioButtons;
+            this.fab = fab;
             fragments = new Fragment[5];
-            fragments[0] = GuideFragment.newInstance(getString(R.string.guide_1));
-            fragments[1] = GuideFragment.newInstance(getString(R.string.guide_2));
-            fragments[2] = GuideFragment.newInstance(getString(R.string.guide_3));
-            fragments[3] = GuideFragment.newInstance(getString(R.string.guide_4));
-            fragments[4] = GuideFragment.newInstance(getString(R.string.guide_5));
+            fragments[0] = GuideFragment.newInstance(getString(R.string.guide_1), R.drawable.tutorial2);
+            fragments[1] = GuideFragment.newInstance(getString(R.string.guide_2), R.drawable.tutorial2);
+            fragments[2] = GuideFragment.newInstance(getString(R.string.guide_3), R.drawable.tutorial2);
+            fragments[3] = GuideFragment.newInstance(getString(R.string.guide_4), R.drawable.tutorial2);
+            fragments[4] = GuideFragment.newInstance(getString(R.string.guide_5), R.drawable.tutorial2);
         }
 
         @Override
@@ -133,6 +142,10 @@ public class GuideActivity extends AppCompatActivity {
             this.radioButtons[this.currentPosition].setChecked(false);
             this.currentPosition = position;
             this.radioButtons[position].setChecked(true);
+            if (this.currentPosition == 4)
+                this.fab.setImageResource(R.drawable.check);
+            else
+                this.fab.setImageResource(R.drawable.next);
         }
 
         @Override

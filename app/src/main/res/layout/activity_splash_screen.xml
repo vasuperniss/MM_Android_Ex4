@@ -6,16 +6,22 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@drawable/splash_background"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.amaze_ing.mm.amazeandroid.SplashScreenActivity">
 
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView"
             android:src="@drawable/mm_logo"
+            android:text="MM"
+            android:textStyle="bold"
+            android:textColor="@color/colorButtons"
+            android:textSize="128dp"
             android:layout_gravity="center"
             android:layout_centerInParent="true"
+            android:alpha="1"
             android:contentDescription="@string/logoDesc" />
 
         <TextView
@@ -23,6 +29,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/splash_message_1"
+            android:textColor="@color/colorButtons"
             android:id="@+id/splash_text_view"
             android:layout_gravity="center"
             android:layout_below="@+id/imageView"

@@ -17,7 +17,7 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:clickable="true"
-        android:src="@drawable/ic_add_white_36dp"
+        android:src="@drawable/next"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_alignParentBottom="true"
