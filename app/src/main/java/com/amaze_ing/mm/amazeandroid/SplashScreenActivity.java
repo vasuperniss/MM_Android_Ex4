@@ -1,6 +1,7 @@
 package com.amaze_ing.mm.amazeandroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private TextView msgTxt;
+    private String userPrefs;
 
     private boolean isRunning;
     private int messageCounter;
@@ -24,6 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         // initialize variables for message cycling
         this.isRunning = false;
         this.messageCounter = 1;
+        this.userPrefs = "userPrefs";
         // create Thread for cycling Messages every second
         this.updateThread = new Thread() {
 
@@ -67,6 +70,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void update(Thread t) {
         int time = 0;
+
         try {
             while (!t.isInterrupted()) {
                 Thread.sleep(16);
@@ -101,11 +105,20 @@ public class SplashScreenActivity extends AppCompatActivity {
                         } else {
                             //TODO:: move to other Activity
 
-                            // not connected -> go to log in Activity
-                            Intent intent = new Intent(
-                                    SplashScreenActivity.this,
-                                    LogInActivity.class);
-                            startActivity(intent);
+                            if(firstStartup()){
+                                // first startup -> go to tutorial
+                                Intent intent = new Intent(
+                                        SplashScreenActivity.this,
+                                        TutorialActivity.class);
+                                startActivity(intent);
+                            }
+                            else{
+                                // not connected -> go to log in Activity
+                                Intent intent = new Intent(
+                                        SplashScreenActivity.this,
+                                        LogInActivity.class);
+                                startActivity(intent);
+                            }
                             // close the current Activity
                             finish();
                         }
@@ -115,5 +128,25 @@ public class SplashScreenActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             System.out.println(e.toString());
         }
+    }
+
+    /**
+        returns:
+                true if app is started for the very first time
+                false if the app has already been started
+     */
+    private boolean firstStartup(){
+        SharedPreferences sharedPref = getSharedPreferences(this.userPrefs, MODE_PRIVATE);
+        SharedPreferences.Editor ed;
+
+        if(!sharedPref.contains("__init__")){
+            ed = sharedPref.edit();
+            // indicate that app has been started for the first time
+            ed.putBoolean("__init__", true);
+            // save changes
+            ed.commit();
+            return true;
+        }
+        return false;
     }
 }
