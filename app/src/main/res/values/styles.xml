@@ -15,15 +15,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="RegisterTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="text_view_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">24dp</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textColor">@color/colorButtons</item>
     </style>
 
     <style name="NormalTheme.Button" parent="Widget.AppCompat.Button.Colored">
-        <item name="android:colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:colorButtonNormal">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/colorButtons</item>
         <item name="android:colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="android:padding">0dp</item>

@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/register_background"
     tools:context="com.amaze_ing.mm.amazeandroid.RegisterActivity">
 
     <RelativeLayout
@@ -18,7 +19,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:nestedScrollingEnabled="true">
 
         <TextView
             style="@style/text_view_style"
@@ -63,6 +65,7 @@
             android:inputType="text"
             android:layout_alignTop="@+id/r_username_txt"
             android:layout_alignParentRight="true"
+            android:textColor="@color/colorButtons"
             android:layout_alignParentEnd="true" />
 
         <EditText
@@ -71,6 +74,7 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/r_password_txtfield"
+            android:textColor="@color/colorButtons"
             android:layout_below="@id/r_username_txtfield"
             android:layout_alignRight="@id/r_username_txtfield"
             android:layout_marginLeft="20dp"/>
@@ -79,6 +83,7 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:id="@+id/r_name_txtfield"
+            android:textColor="@color/colorButtons"
             android:layout_below="@id/r_password_txtfield"
             android:layout_alignRight="@id/r_password_txtfield"
             android:layout_marginLeft="20dp"
@@ -88,6 +93,7 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:id="@+id/r_email_txtfield"
+            android:textColor="@color/colorButtons"
             android:layout_below="@id/r_name_txtfield"
             android:layout_alignRight="@id/r_name_txtfield"
             android:layout_marginLeft="20dp"
@@ -100,42 +106,46 @@
             android:layout_alignLeft="@id/r_email_txtfield"
             android:id="@+id/radio_buttons">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton1"
-            android:layout_alignTop="@+id/r_icon_txt"
-            android:layout_alignRight="@+id/r_email_txtfield"
-            android:layout_alignEnd="@+id/r_email_txtfield" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ico1"
+                android:id="@+id/radioButton1"/>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton2"
-            android:layout_below="@+id/radioButton1"
-            android:layout_alignRight="@+id/r_email_txtfield" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ico2"
+                android:id="@+id/radioButton2"
+                android:layout_below="@+id/radioButton1" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton3"
-            android:layout_below="@+id/radioButton2"
-            android:layout_alignRight="@+id/r_email_txtfield" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ico3"
+                android:id="@+id/radioButton3"
+                android:layout_below="@+id/radioButton2" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton4"
-            android:layout_below="@+id/radioButton3"
-            android:layout_alignRight="@+id/r_email_txtfield" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ico4"
+                android:id="@+id/radioButton4" />
 
-        </RadioGroup>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ico5"
+                android:id="@+id/radioButton5"
+                android:layout_below="@id/radioButton4" />
 
-    </RelativeLayout>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ico5"
+                android:id="@+id/radioButton6"
+                android:layout_below="@id/radioButton5" />
+    </RadioGroup>
 
     <Button
         android:layout_width="wrap_content"
@@ -143,10 +153,10 @@
         android:text="@string/register_btn"
         android:id="@+id/register_btn"
         android:onClick="register"
-        android:layout_alignTop="@+id/clear_btn"
-        android:layout_alignRight="@+id/relativeLayout"
-        android:layout_alignEnd="@+id/relativeLayout"
-        android:theme="@style/NormalTheme.Button" />
+        android:layout_below="@id/radio_buttons"
+        android:layout_alignParentRight="true"
+        android:theme="@style/NormalTheme.Button"
+        android:layout_marginTop="8dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -154,8 +164,12 @@
         android:text="@string/clear_btn"
         android:id="@+id/clear_btn"
         android:onClick="clear"
-        android:layout_below="@+id/relativeLayout"
+        android:layout_below="@id/radio_buttons"
+        android:layout_toLeftOf="@id/register_btn"
         android:layout_centerHorizontal="true"
-        android:theme="@style/NormalTheme.Button" />
+        android:theme="@style/NormalTheme.Button"
+        android:layout_marginTop="8dp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

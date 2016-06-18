@@ -19,9 +19,11 @@
             android:name=".LogInActivity"
             android:label="@string/login_title"
             android:theme="@style/NormalTheme" />
-        <activity android:name=".RegisterActivity"
+        <activity
+            android:name=".RegisterActivity"
             android:label="@string/register_title"
-            android:theme="@style/NormalTheme" />
+            android:theme="@style/RegisterTheme" />
+        <activity android:name=".TutorialActivity"></activity>
     </application>
 
 </manifest>

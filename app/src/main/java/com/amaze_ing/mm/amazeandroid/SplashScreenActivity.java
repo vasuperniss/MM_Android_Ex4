@@ -3,6 +3,7 @@ package com.amaze_ing.mm.amazeandroid;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -95,6 +96,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                                     msgTxt.setText(R.string.splash_message_4);
                                     break;
                             }
+                            msgTxt.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                                    msgTxt.getTextSize() + 4);
                         } else {
                             //TODO:: move to other Activity
 
