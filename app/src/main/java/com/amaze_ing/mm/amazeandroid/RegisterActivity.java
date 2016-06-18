@@ -1,6 +1,7 @@
 package com.amaze_ing.mm.amazeandroid;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email;
     private EditText name;
     private RadioGroup radioGroup;
+    private String userPrefs = "userPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         //TODO:: start registretion
+        // save login credentials
+        Utilities.saveLoginCredentials(this, userPrefs, username.getText().toString(),
+                                                        password.getText().toString());
     }
 
     public void clear(View view) {

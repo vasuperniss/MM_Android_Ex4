@@ -67,6 +67,7 @@
             android:layout_alignRight="@+id/r_password_txtfield"
             android:layout_alignEnd="@+id/r_password_txtfield"
             android:layout_marginTop="8dp"
+            android:onClick="login"
             android:theme="@style/NormalTheme.Button" />
 
         <Button

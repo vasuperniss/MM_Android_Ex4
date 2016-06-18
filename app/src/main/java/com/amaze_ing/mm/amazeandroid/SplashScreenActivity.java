@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private TextView msgTxt;
-    private String userPrefs;
+    private String userPrefs = "userPrefs";
 
     private boolean isRunning;
     private int messageCounter;
@@ -26,7 +26,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         // initialize variables for message cycling
         this.isRunning = false;
         this.messageCounter = 1;
-        this.userPrefs = "userPrefs";
         // create Thread for cycling Messages every second
         this.updateThread = new Thread() {
 
