@@ -30,4 +30,5 @@
     <string name="guide_4">forth guide message</string>
     <string name="guide_5">fifth guide message</string>
     <string name="title_activity_messaging">MessagingActivity</string>
+    <string name="current_user_name">You</string>
 </resources>
