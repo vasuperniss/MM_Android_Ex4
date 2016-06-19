@@ -30,6 +30,7 @@
             android:theme="@style/NoActionBarTheme" />
         <activity
             android:name=".MessagingActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:label="@string/app_name"
             android:theme="@style/NormalTheme"/>
     </application>
