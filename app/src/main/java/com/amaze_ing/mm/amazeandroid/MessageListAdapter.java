@@ -2,10 +2,12 @@ package com.amaze_ing.mm.amazeandroid;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.Random;
 
@@ -41,23 +43,29 @@ public class MessageListAdapter extends ArrayAdapter {
 
         if(message != null )
         {
+            // get fields
             TextView messageContent = (TextView) mView.findViewById(R.id.message_content);
-            TextView messageSender = (TextView) mView.findViewById(R.id.message_sender);
+            ImageView messageSenderImage = (ImageView) mView.findViewById(R.id.message_sender_image);
+            TextView messageSenderName = (TextView) mView.findViewById(R.id.message_sender_name);
             TextView messageTime = (TextView) mView.findViewById(R.id.message_time);
 
+            // set text color for content, time and username
             messageContent.setTextColor(Color.BLACK);
-            messageSender.setTextColor(generateRandomColor());
             messageTime.setTextColor(Color.GRAY);
+            messageSenderName.setTextColor(this.generateRandomColor());
 
+            // set text and image
             messageContent.setText(message.getContent());
-            messageSender.setText(message.getSender());
+            this.setSenderImage(messageSenderImage, message.getImage());
+            messageSenderName.setText(message.getSender());
             messageTime.setText(message.getTime());
 
+            // set background color for text fields
             int color = Color.argb( 255, 245, 245, 245 );
             messageContent.setBackgroundColor( color );
-            messageSender.setBackgroundColor( color );
+            messageSenderName.setBackgroundColor( color );
             messageTime.setBackgroundColor( color );
-
+            messageSenderImage.setBackgroundColor( color );
         }
         return mView;
     }
@@ -65,5 +73,12 @@ public class MessageListAdapter extends ArrayAdapter {
     private int generateRandomColor(){
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+    }
+
+    private void setSenderImage(ImageView imageView, String imageName){
+        Context context = imageView.getContext();
+        int id = context.getResources().getIdentifier(imageName, "drawable",
+                                                        context.getPackageName());
+        imageView.setImageResource(id);
     }
 }

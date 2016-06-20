@@ -50,7 +50,8 @@ public class MessagingActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             messageTime = sdf.format(new Date());
 
-            this.messageList.add(new Message(messageContent, messageSender, messageTime));
+            // TODO: save user pic
+            this.messageList.add(new Message(messageContent, messageSender, 1, messageTime));
             this.messageAdapter.notifyDataSetChanged();
             this.messageField.setText("");
 
@@ -62,10 +63,10 @@ public class MessagingActivity extends AppCompatActivity {
         this.messageList = new ArrayList<Message>();
 
         // fetch messages from server
-        this.messageList.add(new Message("Hello","Devi","12:30"));
-        this.messageList.add(new Message("Greetings","Kvothe","15:21"));
-        this.messageList.add(new Message("Hello there","Simmon","16:59"));
-        this.messageList.add(new Message("Sup","Dan","18:14"));
+        this.messageList.add(new Message("Hello","Devi",1,"9:30"));
+        this.messageList.add(new Message("Greetings","Kvothe",2,"15:21"));
+        this.messageList.add(new Message("Hello there","Simmon",3,"16:59"));
+        this.messageList.add(new Message("Sup","Dan",4,"18:14"));
 
         this.messageAdapter = new MessageListAdapter(MessagingActivity.this, R.layout.message_list_item,
                                                                     this.messageList);

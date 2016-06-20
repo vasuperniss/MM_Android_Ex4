@@ -6,11 +6,18 @@ package com.amaze_ing.mm.amazeandroid;
 public class Message {
     private String content;
     private String sender;
+    private String image;
     private String time;
 
-    public Message(String content, String sender, String time){
+    public Message(String content, String sender, int image, String time){
         this.content = content;
         this.sender = sender;
+        this.image = "ico"+image;
+
+
+        if (time.length() < 5){
+            time = "0"+time;
+        }
         this.time = time;
     }
 
@@ -25,4 +32,6 @@ public class Message {
     public String getTime(){
         return this.time;
     }
+
+    public String getImage() { return this.image; }
 }
