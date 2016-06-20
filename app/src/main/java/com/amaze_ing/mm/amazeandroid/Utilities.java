@@ -8,8 +8,10 @@ import android.content.SharedPreferences;
  */
 public class Utilities {
 
-    public static void saveLoginCredentials(Context context, String userPrefs,
-                                                String username, String password){
+    public static String userPrefs = "userPrefs";
+
+    public static void saveLoginCredentials(Context context,
+                                                String username, String password, int userPic){
         SharedPreferences sharedPref = context.getSharedPreferences(userPrefs, Context.MODE_PRIVATE);
         SharedPreferences.Editor ed;
 
@@ -17,10 +19,17 @@ public class Utilities {
         // delete existing login credentials
         ed.remove("username");
         ed.remove("password");
+        ed.remove("userImage");
         // save user login credentials for next time
         ed.putString("username", username);
         ed.putString("password", password);
+        ed.putInt("userImage", userPic);
         // save changes
         ed.commit();
+    }
+
+    public static int fetchUserImage(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences(userPrefs, Context.MODE_PRIVATE);
+        return sharedPref.getInt("userImage", 1);
     }
 }
