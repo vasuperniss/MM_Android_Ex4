@@ -50,8 +50,8 @@ public class MessagingActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             messageTime = sdf.format(new Date());
 
-            // TODO: save user pic
-            this.messageList.add(new Message(messageContent, messageSender, 1, messageTime));
+            int userPic = Utilities.fetchUserImage(this);
+            this.messageList.add(new Message(messageContent, messageSender, userPic, messageTime));
             this.messageAdapter.notifyDataSetChanged();
             this.messageField.setText("");
 

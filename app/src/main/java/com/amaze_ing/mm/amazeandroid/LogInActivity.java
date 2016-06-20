@@ -14,7 +14,6 @@ public class LogInActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
-    private String userPrefs = "userPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +32,9 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     public void login(View view){
-        Utilities.saveLoginCredentials(this, userPrefs, username.getText().toString(),
-                                                    password.getText().toString());
+        int userPic = Utilities.fetchUserImage(this);
+        Utilities.saveLoginCredentials(this, username.getText().toString(),
+                                                    password.getText().toString(), userPic);
         if(username.getText().toString().equals("a") &&
                 password.getText().toString().equals("a")){
             Intent intent = new Intent(LogInActivity.this, MessagingActivity.class);

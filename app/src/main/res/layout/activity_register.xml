@@ -110,6 +110,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ico1"
+                android:text="1"
+                android:textColor="#00FFFFFF"
                 android:id="@+id/radioButton1"/>
 
             <RadioButton
@@ -117,6 +119,8 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ico2"
                 android:id="@+id/radioButton2"
+                android:text="2"
+                android:textColor="#00FFFFFF"
                 android:layout_below="@+id/radioButton1" />
 
             <RadioButton
@@ -124,19 +128,25 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ico3"
                 android:id="@+id/radioButton3"
+                android:text="3"
+                android:textColor="#00FFFFFF"
                 android:layout_below="@+id/radioButton2" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ico4"
-                android:id="@+id/radioButton4" />
+                android:id="@+id/radioButton4"
+                android:text="4"
+                android:textColor="#00FFFFFF"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ico5"
                 android:id="@+id/radioButton5"
+                android:text="5"
+                android:textColor="#00FFFFFF"
                 android:layout_below="@id/radioButton4" />
 
             <RadioButton
@@ -144,6 +154,8 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ico5"
                 android:id="@+id/radioButton6"
+                android:text="6"
+                android:textColor="#00FFFFFF"
                 android:layout_below="@id/radioButton5" />
     </RadioGroup>
 

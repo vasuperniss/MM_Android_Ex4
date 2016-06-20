@@ -1,6 +1,7 @@
 package com.amaze_ing.mm.amazeandroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +18,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email;
     private EditText name;
     private RadioGroup radioGroup;
-    private String userPrefs = "userPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +50,18 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        //TODO:: start registretion
         // save login credentials
-        Utilities.saveLoginCredentials(this, userPrefs, username.getText().toString(),
-                                                        password.getText().toString());
+        RadioButton selection = (RadioButton) findViewById(selectedIcon);
+        Utilities.saveLoginCredentials(this, username.getText().toString(),
+                                            password.getText().toString(),
+                                            Integer.parseInt(selection.getText().toString()));
+        // TODO: send server user data
+        Intent messagingIntent = new Intent(RegisterActivity.this, MessagingActivity.class);
+        startActivity(messagingIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+
+        // close registration activity
+        finish();
     }
 
     public void clear(View view) {
