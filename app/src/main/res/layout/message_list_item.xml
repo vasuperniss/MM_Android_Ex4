@@ -12,6 +12,36 @@
         android:layout_height="wrap_content"
         android:weightSum="2" >
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/message_content"
+            android:textSize="50px"
+            android:paddingTop="2dip"
+            android:paddingBottom="2dip"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
+            android:layout_below="@+id/message_content"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/message_time"
+            android:textSize="35px"
+            android:gravity="bottom"
+            android:paddingRight="2dp"
+            android:layout_below="@+id/message_time"
+            android:layout_alignParentStart="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2" >
+
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -28,31 +58,4 @@
             android:id="@+id/message_sender_name" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/message_content"
-            android:textSize="50px"
-            android:paddingTop="2dip"
-            android:paddingBottom="2dip"
-            android:layout_below="@+id/message_content"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/message_time"
-            android:textSize="35px"
-            android:gravity="bottom"
-            android:paddingRight="2dp"
-            android:layout_below="@+id/message_time"
-            android:layout_alignParentStart="true" />
-    </LinearLayout>
 </LinearLayout>

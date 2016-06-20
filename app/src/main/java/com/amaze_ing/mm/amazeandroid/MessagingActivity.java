@@ -49,7 +49,7 @@ public class MessagingActivity extends AppCompatActivity {
             // get time
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             messageTime = sdf.format(new Date());
-            
+
             int userPic = Utilities.fetchUserImage(this);
             this.messageList.add(new Message(messageContent, messageSender, userPic, messageTime));
             this.messageAdapter.notifyDataSetChanged();
