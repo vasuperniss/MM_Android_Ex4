@@ -1,11 +1,14 @@
 package com.amaze_ing.mm.amazeandroid;
 
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,9 +17,10 @@ import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
 
-public class MessagingActivity extends AppCompatActivity {
+public class MessagingActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private EditText messageField;
     private ListView messageListView;
+    private SwipeRefreshLayout swipeRefresh;
     private MessageListAdapter messageAdapter;
     private List<Message> messageList;
 
@@ -35,6 +39,10 @@ public class MessagingActivity extends AppCompatActivity {
                 sendMessage(v);
             }
         });
+
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.message_swipe_refresh);
+        swipeRefresh.setDistanceToTriggerSync(500);
+        swipeRefresh.setOnRefreshListener(this);
     }
 
     public void sendMessage(View view){
@@ -71,5 +79,15 @@ public class MessagingActivity extends AppCompatActivity {
         this.messageAdapter = new MessageListAdapter(MessagingActivity.this, R.layout.message_list_item,
                                                                     this.messageList);
         this.messageListView.setAdapter(this.messageAdapter);
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override public void run() {
+                swipeRefresh.setRefreshing(false);
+            }
+        }, 2000);
+        // TODO: retrieve 10 more messages
     }
 }
