@@ -1,27 +1,18 @@
 <resources>
+    <!-- global strings -->
     <string name="app_name">AMaze</string>
-    <string name="login_title">Log In</string>
-    <string name="splash_message_1">Loading...</string>
-    <string name="splash_message_2">Connecting to server...</string>
-    <string name="splash_message_3">Getting nuclear launch codes...</string>
-    <string name="splash_message_4">Launching missles...</string>
-    <string name="register_title">Register</string>
-    <string name="r_email">email:</string>
-    <string name="r_name">name:</string>
-    <string name="rl_password">password:</string>
-    <string name="rl_username">username:</string>
-    <string name="r_icon">icon:</string>
-    <string name="login_username">username:</string>
-    <string name="login_password">password:</string>
-    <string name="register_btn">Register</string>
-    <string name="clear_btn">Clear</string>
     <string name="logoDesc">logo</string>
-    <string name="register_err">Fill in all fields before submitting.</string>
     <string name="title_activity_guide">guideActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- splash screen strings -->
+    <string name="splash_message_1">Loading...</string>
+    <string name="splash_message_2">Connecting to server...</string>
+    <string name="splash_message_3">Getting nuclear launch codes...</string>
+    <string name="splash_message_4">Launching missles...</string>
+
+    <!-- Tutorial strings -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="guide_1">Welcome to the MM chat application.\n
                             This is a quick tuturial to get you started :)</string>
@@ -29,8 +20,27 @@
     <string name="guide_3">third guide message</string>
     <string name="guide_4">forth guide message</string>
     <string name="guide_5">fifth guide message</string>
-    <string name="title_activity_messaging">MessagingActivity</string>
+
+    <!-- login strings -->
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_button_text">Login</string>
+    <string name="register_button_text">Register</string>
+
+    <!-- registration strings -->
+    <string name="r_email">email:</string>
+    <string name="r_name">name:</string>
+    <string name="rl_password">password:</string>
+    <string name="rl_username">username:</string>
+    <string name="r_icon">icon:</string>
+    <string name="register_btn">Register</string>
+    <string name="clear_btn">Clear</string>
+    <string name="register_err">Fill in all fields before submitting.</string>
+
+    <!-- Messaging strings-->
     <string name="current_user_name">You</string>
     <string name="login_err">bad username or password. :/</string>
     <string name="register_err_2">Username is already taken.</string>
+    <string name="title_activity_login_activity_new">AMaze</string>
+
 </resources>
