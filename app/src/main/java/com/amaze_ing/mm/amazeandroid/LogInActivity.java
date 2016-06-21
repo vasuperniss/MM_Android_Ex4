@@ -35,6 +35,7 @@ public class LogInActivity extends AppCompatActivity {
                 RegisterActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+        finish();
     }
 
     public void login(View view){
