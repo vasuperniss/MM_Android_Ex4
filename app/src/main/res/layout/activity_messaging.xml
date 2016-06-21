@@ -34,7 +34,9 @@
         android:layout_toStartOf="@+id/fab_send_message"
         android:layout_alignTop="@+id/fab_send_message"
         android:inputType="textMultiLine"
-        android:maxLines="4" />
+        android:maxLines="4"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"/>
 
     <ListView
         android:layout_width="wrap_content"

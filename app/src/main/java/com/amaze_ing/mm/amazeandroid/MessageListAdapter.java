@@ -72,7 +72,7 @@ public class MessageListAdapter extends ArrayAdapter {
 
     private int generateRandomColor(){
         Random rnd = new Random();
-        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        return Color.argb(255, rnd.nextInt(185), rnd.nextInt(185), rnd.nextInt(185));
     }
 
     private void setSenderImage(ImageView imageView, String imageName){
