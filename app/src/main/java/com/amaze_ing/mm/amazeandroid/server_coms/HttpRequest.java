@@ -2,6 +2,7 @@ package com.amaze_ing.mm.amazeandroid.server_coms;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -21,22 +22,14 @@ public class HttpRequest {
     public String sendRequest(String resource, HttpParameters params, String method, boolean isInSession) {
         String responseJson = null;
         try {
-            URL url = new URL("http://advprog.cs.biu.ac.il:8080/AMaze/" + resource);
+            URL url = new URL("http://advprog.cs.biu.ac.il:8080/AMaze/" + resource + "?" + params.toParametersQuery());
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             if (isInSession)
                 urlConnection.setRequestProperty("Cookie", cookie);
             urlConnection.setRequestMethod(method);
-            urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
-
-            // send the request
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
             if (!isInSession)
                 cookie = urlConnection.getHeaderField("Set-Cookie");
-            writer.write(params.toParametersQuery());
-            writer.flush();
-            writer.close();
 
             // receive the response
             int responseCode = urlConnection.getResponseCode();

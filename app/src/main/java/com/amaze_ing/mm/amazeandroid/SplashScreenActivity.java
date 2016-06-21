@@ -76,7 +76,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if (!this.isRunning)
                     // app is off screen -> no need to update anything
                     continue;
-                if ((time+=16) < 1000)
+                if ((time+=16) < 100)
                     // a full second is yet to pass -> no need to update
                     continue;
                 // second passed -> reset timer and increase message counter

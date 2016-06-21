@@ -40,4 +40,6 @@
             android:theme="@style/NormalTheme"/>
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>

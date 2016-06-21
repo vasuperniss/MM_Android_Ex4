@@ -31,4 +31,6 @@
     <string name="guide_5">fifth guide message</string>
     <string name="title_activity_messaging">MessagingActivity</string>
     <string name="current_user_name">You</string>
+    <string name="login_err">bad username or password. :/</string>
+    <string name="register_err_2">Username is already taken.</string>
 </resources>

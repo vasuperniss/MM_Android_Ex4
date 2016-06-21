@@ -8,6 +8,7 @@
     android:background="@drawable/login_background"
     tools:context="com.amaze_ing.mm.amazeandroid.LogInActivity">
 
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register"
-            android:id="@+id/button2"
+            android:id="@+id/login_btn"
             android:layout_alignTop="@+id/register_btn"
             android:layout_toLeftOf="@+id/register_btn"
             android:layout_toStartOf="@+id/register_btn"
@@ -82,4 +83,13 @@
             android:onClick="goToRegister"
             android:theme="@style/NormalTheme.Button" />
     </RelativeLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/login_prog_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 </RelativeLayout>
