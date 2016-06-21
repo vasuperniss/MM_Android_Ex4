@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email;
     private EditText name;
     private RadioGroup radioGroup;
+    private ProgressBar progBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.r_email_txtfield);
         name = (EditText) findViewById(R.id.r_name_txtfield);
         radioGroup = (RadioGroup) findViewById(R.id.radio_buttons);
+        progBar = (ProgressBar) findViewById(R.id.register_prog_bar);
     }
 
     public void register(View view) {
@@ -63,15 +66,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }.start();
 
-//        Utilities.saveLoginCredentials(this, username.getText().toString(),
-//                                            password.getText().toString(), icon);
-//        // TODO: send server user data
-//        Intent messagingIntent = new Intent(RegisterActivity.this, MessagingActivity.class);
-//        startActivity(messagingIntent);
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-//
-//        // close registration activity
-//        finish();
+        ((Button) findViewById(R.id.reg_register_btn)).setEnabled(false);
+        ((Button) findViewById(R.id.clear_btn)).setEnabled(false);
+        progBar.setVisibility(View.VISIBLE);
     }
 
     private void doRegister(final String username, final String password, String name, String email, final int icon) {
@@ -90,9 +87,9 @@ public class RegisterActivity extends AppCompatActivity {
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
-                    //((Button) findViewById(R.id.login_btn)).setEnabled(true);
-                    //((Button) findViewById(R.id.register_btn)).setEnabled(true);
-                    //progBar.setVisibility(View.GONE);
+                    ((Button) findViewById(R.id.reg_register_btn)).setEnabled(true);
+                    ((Button) findViewById(R.id.clear_btn)).setEnabled(true);
+                    progBar.setVisibility(View.GONE);
                 }
             }
         });
