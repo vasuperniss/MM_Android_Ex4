@@ -6,6 +6,11 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
+    <!-- Utilities strings -->
+    <string name="utils_username">username</string>
+    <string name="utils_password">password</string>
+    <string name="utils_userImage">userImage</string>
+
     <!-- splash screen strings -->
     <string name="splash_app_name">MM</string>
     <string name="splash_message_1">Loading...</string>

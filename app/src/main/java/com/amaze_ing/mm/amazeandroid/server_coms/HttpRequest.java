@@ -20,7 +20,7 @@ public class HttpRequest {
     private static String cookie = null;
 
     public String sendRequest(String resource, HttpParameters params, String method, boolean isInSession) {
-        String responseJson = null;
+        String responseJson = "";
 
         try {
             URL url = new URL("http://advprog.cs.biu.ac.il:8080/AMaze/" + resource + "?" + params.toParametersQuery());

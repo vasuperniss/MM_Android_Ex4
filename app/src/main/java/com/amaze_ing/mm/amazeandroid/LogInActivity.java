@@ -44,8 +44,8 @@ public class LogInActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.login_btn)).setEnabled(false);
         ((Button) findViewById(R.id.register_btn)).setEnabled(false);
         this.progBar.setVisibility(View.VISIBLE);
-        new Thread() {
 
+        new Thread() {
             @Override
             public void run() {
                 doLogin(username, password);
