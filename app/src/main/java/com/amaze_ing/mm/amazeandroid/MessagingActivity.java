@@ -10,6 +10,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.amaze_ing.mm.amazeandroid.server_coms.GetMessagesRequest;
+import com.amaze_ing.mm.amazeandroid.server_coms.SendMessageRequest;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +29,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     private SwipeRefreshLayout swipeRefresh;
     private MessageListAdapter messageAdapter;
     private List<Message> messageList;
+    private int messageCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,9 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         setContentView(R.layout.activity_messaging);
         this.messageField = (EditText) findViewById(R.id.message_text);
         this.messageListView = (ListView) findViewById(R.id.message_list);
-        initMessageList();
+
+        this.messageCount = 10;
+        getMessages();
 
         // set up on click
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_send_message);
@@ -63,21 +72,39 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             this.messageAdapter.notifyDataSetChanged();
             this.messageField.setText("");
 
-            // send message to server
+            SendMessageRequest.attemptSendMessage(messageContent);
         }
     }
 
-    private void initMessageList(){
+    private void getMessages(){
         this.messageList = new ArrayList<Message>();
+        String messagesJSON = GetMessagesRequest.attemptGetMessages(this.messageCount);
+        String allMessagesWrapper = getString(R.string.json_all_messages_wrapper);
 
-        // fetch messages from server
-        this.messageList.add(new Message("Hello","Devi",1,"9:30"));
-        this.messageList.add(new Message("Greetings","Kvothe",2,"15:21"));
-        this.messageList.add(new Message("Hello there","Simmon",3,"16:59"));
-        this.messageList.add(new Message("Sup","Dan",4,"18:14"));
+        // attempt fetching messages from server
+        try{
+            JSONObject iterator;
+            JSONObject reader = new JSONObject(messagesJSON);
+            JSONArray messagesArray = reader.optJSONArray(allMessagesWrapper);
 
+            // iterate messages array and add each one to the message list
+            for (int i=0; i<messagesArray.length(); ++i){
+                iterator = messagesArray.getJSONObject(i);
+                this.messageList.add(new Message(
+                        iterator.getString(getString(R.string.json_message_content)),
+                        iterator.getString(getString(R.string.json_message_username)),
+                        iterator.getInt(getString(R.string.json_message_icon)),
+                        iterator.getString(getString(R.string.json_message_time))));
+            }
+
+        }catch (Exception e) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                                        getString(R.string.json_exception),
+                                        Toast.LENGTH_SHORT);
+            toast.show();
+        }
         this.messageAdapter = new MessageListAdapter(MessagingActivity.this, R.layout.message_list_item,
-                                                                    this.messageList);
+                this.messageList);
         this.messageListView.setAdapter(this.messageAdapter);
     }
 
@@ -89,5 +116,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             }
         }, 2000);
         // TODO: retrieve 10 more messages
+        this.messageCount += 10;
+        getMessages();
     }
 }

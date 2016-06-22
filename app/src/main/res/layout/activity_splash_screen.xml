@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView"
             android:src="@drawable/mm_logo"
-            android:text="MM"
+            android:text="@string/splash_app_name"
             android:textStyle="bold"
             android:textColor="@color/colorButtons"
             android:textSize="128dp"

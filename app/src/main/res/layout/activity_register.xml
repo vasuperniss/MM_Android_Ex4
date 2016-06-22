@@ -102,9 +102,9 @@
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/r_email_txtfield"
             android:layout_alignLeft="@id/r_email_txtfield"
-            android:id="@+id/radio_buttons">
+            android:id="@+id/radio_buttons"
+            android:layout_alignTop="@+id/r_icon_txt">
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -152,7 +152,7 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ico5"
+                android:drawableRight="@drawable/ico6"
                 android:id="@+id/radioButton6"
                 android:text="6"
                 android:textColor="#00FFFFFF"

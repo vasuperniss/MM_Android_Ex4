@@ -12,8 +12,7 @@ public class LoginRequest {
         HttpRequest.HttpParameters parameters = new HttpRequest.HttpParameters();
         parameters.add("username", username).add("password", password);
         String json = new HttpRequest().sendRequest("ex4Login", parameters, "GET", false);
-        if (json.contains("true"))
-            return true;
-        return false;
+
+        return json.contains("true");
     }
 }

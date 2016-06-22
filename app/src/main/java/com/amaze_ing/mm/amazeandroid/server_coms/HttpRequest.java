@@ -21,6 +21,7 @@ public class HttpRequest {
 
     public String sendRequest(String resource, HttpParameters params, String method, boolean isInSession) {
         String responseJson = null;
+
         try {
             URL url = new URL("http://advprog.cs.biu.ac.il:8080/AMaze/" + resource + "?" + params.toParametersQuery());
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -35,13 +36,14 @@ public class HttpRequest {
             int responseCode = urlConnection.getResponseCode();
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 String line;
-                BufferedReader br=new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                while ((line=br.readLine()) != null) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                while ((line = br.readLine()) != null) {
                     responseJson+=line;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
+            //System.out.println("sendRequest exception");
         }
 
         return responseJson;

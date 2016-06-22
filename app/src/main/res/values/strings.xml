@@ -7,6 +7,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- splash screen strings -->
+    <string name="splash_app_name">MM</string>
     <string name="splash_message_1">Loading...</string>
     <string name="splash_message_2">Connecting to server...</string>
     <string name="splash_message_3">Getting nuclear launch codes...</string>
@@ -28,19 +29,28 @@
     <string name="register_button_text">Register</string>
 
     <!-- registration strings -->
-    <string name="r_email">email:</string>
-    <string name="r_name">name:</string>
-    <string name="rl_password">password:</string>
-    <string name="rl_username">username:</string>
-    <string name="r_icon">icon:</string>
+    <string name="r_email">Email</string>
+    <string name="r_name">Name</string>
+    <string name="rl_password">Password</string>
+    <string name="rl_username">Username</string>
+    <string name="r_icon">Icon</string>
     <string name="register_btn">Register</string>
     <string name="clear_btn">Clear</string>
-    <string name="register_err">Fill in all fields before submitting.</string>
+    <string name="register_err">Fill in all fields before submitting</string>
 
     <!-- Messaging strings-->
     <string name="current_user_name">You</string>
-    <string name="login_err">bad username or password. :/</string>
-    <string name="register_err_2">Username is already taken.</string>
+    <string name="login_err">Bad username or password</string>
+    <string name="register_err_2">Username is already taken</string>
     <string name="title_activity_login_activity_new">AMaze</string>
+
+    <string name="json_all_messages_wrapper">messages</string>
+    <string name="json_message_wrapper">msg</string>
+    <string name="json_message_content">message</string>
+    <string name="json_message_time">time</string>
+    <string name="json_message_username">username</string>
+    <string name="json_message_name">name</string>
+    <string name="json_message_icon">icon</string>
+    <string name="json_exception">Json Exception occurred</string>
 
 </resources>
