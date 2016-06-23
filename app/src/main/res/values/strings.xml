@@ -21,11 +21,12 @@
     <!-- Tutorial strings -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="guide_1">Welcome to the MM chat application.\n
-                            This is a quick tuturial to get you started :)</string>
-    <string name="guide_2">second guide message</string>
-    <string name="guide_3">third guide message</string>
-    <string name="guide_4">forth guide message</string>
-    <string name="guide_5">fifth guide message</string>
+                            This is a quick tutorial to get you started :)</string>
+    <string name="guide_2">To logout from your current user and switch to another,\n
+                            press the shown button in the chat screen.</string>
+    <string name="guide_3">enter the text of your message in this text box.</string>
+    <string name="guide_4">press the shown button to send your message.</string>
+    <string name="guide_5">shake the device to update the messages in the chat screen.</string>
 
     <!-- login strings -->
     <string name="login_username">Username</string>
