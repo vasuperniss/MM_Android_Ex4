@@ -1,10 +1,13 @@
 package com.amaze_ing.mm.amazeandroid;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class MessagingActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private EditText messageField;
@@ -32,6 +36,22 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.messaging_toolbar);
+        //setSupportActionBar(myToolbar);
+        myToolbar.inflateMenu(R.menu.menu_guide);
+        myToolbar.setTitle(R.string.app_name);
+        myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem arg0) {
+                if(arg0.getItemId() == R.id.action_settings){
+                    disconnect();
+                }
+                return false;
+            }
+        });
+
         this.messageField = (EditText) findViewById(R.id.message_text);
         this.messageListView = (ListView) findViewById(R.id.message_list);
 
@@ -89,6 +109,18 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
 
         AsyncTaskRunner runner = new AsyncTaskRunner();
         runner.execute();
+    }
+
+    private void disconnect() {
+        //TODO:: add disconnect code
+
+        // back to login activity
+        Intent intent = new Intent(
+                MessagingActivity.this,
+                LogInActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+        finish();
     }
 
     @Override
