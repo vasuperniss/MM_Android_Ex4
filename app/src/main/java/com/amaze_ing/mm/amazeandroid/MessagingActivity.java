@@ -35,6 +35,16 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         this.messageField = (EditText) findViewById(R.id.message_text);
         this.messageListView = (ListView) findViewById(R.id.message_list);
 
+        // start refresh animation while messages are loaded from the server for the first time
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.message_swipe_refresh);
+        swipeRefresh.setDistanceToTriggerSync(500);
+        swipeRefresh.post(new Runnable() {
+            @Override public void run() {
+                swipeRefresh.setRefreshing(true);
+            }
+        });
+        swipeRefresh.setOnRefreshListener(this);
+
         this.messageCount = 10;
         getMessages();
 
@@ -47,10 +57,6 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                 sendMessage(v);
             }
         });
-
-        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.message_swipe_refresh);
-        swipeRefresh.setDistanceToTriggerSync(500);
-        swipeRefresh.setOnRefreshListener(this);
     }
 
     public void sendMessage(View view){
@@ -97,6 +103,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         getMessages();
     }
 
+    // AsyncTask for fetching messages from server
     private class AsyncTaskRunner extends AsyncTask<Void, Void, String>{
         @Override
         protected String doInBackground(Void... params) {

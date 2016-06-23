@@ -143,9 +143,9 @@ public class GuideActivity extends AppCompatActivity {
             this.currentPosition = position;
             this.radioButtons[position].setChecked(true);
             if (this.currentPosition == 4)
-                this.fab.setImageResource(R.drawable.check);
+                this.fab.setImageResource(R.drawable.ic_done_white_36dp);
             else
-                this.fab.setImageResource(R.drawable.next);
+                this.fab.setImageResource(R.drawable.ic_done_all_white_36dp);
         }
 
         @Override

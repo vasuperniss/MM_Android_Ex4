@@ -98,7 +98,7 @@
         android:backgroundTint="@color/colorPrimary"
         app:borderWidth="0dp"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/next"
+        android:src="@drawable/ic_done_all_white_36dp"
         android:onClick="toNextPage"/>
 
 </android.support.design.widget.CoordinatorLayout>

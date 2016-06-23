@@ -10,7 +10,6 @@ public class SendMessageRequest {
         parameters.add("message", messageContent);
         String json = new HttpRequest().sendRequest("ex4AddMessage", parameters, "GET", true);
 
-        if(json == null) return false;
         return json.contains("msg");
     }
 }
