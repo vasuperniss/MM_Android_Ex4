@@ -49,6 +49,7 @@
     <string name="login_err">Bad username or password</string>
     <string name="register_err_2">Username is already taken</string>
     <string name="title_activity_login_activity_new">AMaze</string>
+    <string name="shake_update_message">Loading new messages</string>
 
     <string name="json_all_messages_wrapper">messages</string>
     <string name="json_message_wrapper">msg</string>

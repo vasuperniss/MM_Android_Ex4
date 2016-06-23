@@ -1,6 +1,11 @@
 package com.amaze_ing.mm.amazeandroid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.amaze_ing.mm.amazeandroid.server_coms.GetMessagesRequest;
 import com.amaze_ing.mm.amazeandroid.server_coms.SendMessageRequest;
@@ -21,19 +27,59 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * mAccel - acceleration apart from gravity
+ * mAccelCurrent - current acceleration including gravity
+ * mAccelLast - last acceleration including gravity
+ */
 public class MessagingActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private EditText messageField;
     private ListView messageListView;
     private SwipeRefreshLayout swipeRefresh;
     private MessageListAdapter messageAdapter;
     private List<Message> messageList;
-    private int messageCount;
+    private SensorManager mSensorManager;
+    private float mAccel;
+    private float mAccelCurrent;
+    private float mAccelLast;
+
+    private final SensorEventListener mSensorListener = new SensorEventListener() {
+        public void onSensorChanged(SensorEvent se) {
+            float x = se.values[0];
+            float y = se.values[1];
+            float z = se.values[2];
+            mAccelLast = mAccelCurrent;
+            mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
+            float delta = mAccelCurrent - mAccelLast;
+            mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+
+            if (mAccel > 2) {
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.shake_update_message), Toast.LENGTH_SHORT);
+                toast.show();
+                getMessages();
+            }
+        }
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging);
 
+        this.messageField = (EditText) findViewById(R.id.message_text);
+        this.messageListView = (ListView) findViewById(R.id.message_list);
+        this.messageList = new ArrayList<Message>();
+
+        // sensors
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        mAccel = 0.00f;
+        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+        mAccelLast = SensorManager.GRAVITY_EARTH;
+
+        // UI elements
         Toolbar myToolbar = (Toolbar) findViewById(R.id.messaging_toolbar);
         //setSupportActionBar(myToolbar);
         myToolbar.inflateMenu(R.menu.menu_guide);
@@ -48,11 +94,6 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                 return false;
             }
         });
-
-        this.messageField = (EditText) findViewById(R.id.message_text);
-        this.messageListView = (ListView) findViewById(R.id.message_list);
-        this.messageList = new ArrayList<Message>();
-
         // start refresh animation while messages are loaded from the server for the first time
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.message_swipe_refresh);
         swipeRefresh.setDistanceToTriggerSync(500);
@@ -63,18 +104,28 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         });
         swipeRefresh.setOnRefreshListener(this);
 
-        //this.messageCount = 10;
-        getMessages();
-
-        // set up on click
+        // FAB setup
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_send_message);
-
         assert fab != null;
         fab.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 sendMessage(v);
             }
         });
+
+        getMessages();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
     }
 
     /**
@@ -181,8 +232,6 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         }
     }
 
-
-
     /**
      *
      */
@@ -217,4 +266,6 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             messageField.setText("");
         }
     }
+
+
 }
