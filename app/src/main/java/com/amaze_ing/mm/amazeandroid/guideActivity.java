@@ -120,11 +120,11 @@ public class GuideActivity extends AppCompatActivity {
             this.radioButtons = radioButtons;
             this.fab = fab;
             fragments = new Fragment[5];
-            fragments[0] = GuideFragment.newInstance(getString(R.string.guide_1), R.drawable.tutorial2);
+            fragments[0] = GuideFragment.newInstance(getString(R.string.guide_1), R.drawable.tutorial1);
             fragments[1] = GuideFragment.newInstance(getString(R.string.guide_2), R.drawable.tutorial2);
-            fragments[2] = GuideFragment.newInstance(getString(R.string.guide_3), R.drawable.tutorial2);
-            fragments[3] = GuideFragment.newInstance(getString(R.string.guide_4), R.drawable.tutorial2);
-            fragments[4] = GuideFragment.newInstance(getString(R.string.guide_5), R.drawable.tutorial2);
+            fragments[2] = GuideFragment.newInstance(getString(R.string.guide_3), R.drawable.tutorial3);
+            fragments[3] = GuideFragment.newInstance(getString(R.string.guide_4), R.drawable.tutorial4);
+            fragments[4] = GuideFragment.newInstance(getString(R.string.guide_5), R.drawable.tutorial5);
         }
 
         @Override
