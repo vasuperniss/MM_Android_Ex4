@@ -58,5 +58,4 @@
     <string name="json_message_name">name</string>
     <string name="json_message_icon">icon</string>
     <string name="json_exception">Json Exception occurred</string>
-
 </resources>

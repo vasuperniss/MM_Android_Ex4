@@ -51,6 +51,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
 
         this.messageField = (EditText) findViewById(R.id.message_text);
         this.messageListView = (ListView) findViewById(R.id.message_list);
+        this.messageList = new ArrayList<Message>();
 
         // start refresh animation while messages are loaded from the server for the first time
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.message_swipe_refresh);
@@ -62,7 +63,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         });
         swipeRefresh.setOnRefreshListener(this);
 
-        this.messageCount = 10;
+        //this.messageCount = 10;
         getMessages();
 
         // set up on click
@@ -98,7 +99,6 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         if(currentUsername.length() == 0) {
             return;
         }
-        this.messageList = new ArrayList<Message>();
 
         FetchMessagesAsync runner = new FetchMessagesAsync();
         runner.execute();
@@ -124,7 +124,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
      */
     @Override
     public void onRefresh() {
-        this.messageCount += 10;
+        //this.messageCount += 10;
         getMessages();
     }
 
@@ -135,7 +135,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         @Override
         protected String doInBackground(Void... params) {
             // attempt fetching messages from server
-            return GetMessagesRequest.attemptGetMessages(messageCount);
+            return GetMessagesRequest.attemptGetMessages(messageList.size());
         }
 
         @Override
@@ -145,25 +145,32 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             String allMessagesWrapper = getString(R.string.json_all_messages_wrapper);
 
             // fetch messages from response
-            try{
+            tryLabel: try{
+                if(result == null) {
+                    // if result is null an error occurred
+                    throw new RuntimeException("result string from getMessages is null");
+                }
+                // if result is empty there's nothing to update
+                if("".equals(result)) break tryLabel;
+
                 messagesJSON = result;
                 JSONObject iterator;
                 JSONObject reader = new JSONObject(messagesJSON);
                 JSONArray messagesArray = reader.optJSONArray(allMessagesWrapper);
+                messageList = new ArrayList<Message>();
 
-                // add messages from array to list
+                // add messages
                 for (int i=0; i<messagesArray.length(); ++i){
                     iterator = messagesArray.getJSONObject(i).getJSONObject(
                             getString(R.string.json_message_wrapper));
-
                     messageList.add(0,new Message(
                             iterator.getString(getString(R.string.json_message_content)),
                             iterator.getString(getString(R.string.json_message_username)),
                             iterator.getInt(getString(R.string.json_message_icon)),
                             iterator.getString(getString(R.string.json_message_time))));
                 }
-
-            }catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
             // update ListView
@@ -173,6 +180,8 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             swipeRefresh.setRefreshing(false);
         }
     }
+
+
 
     /**
      *

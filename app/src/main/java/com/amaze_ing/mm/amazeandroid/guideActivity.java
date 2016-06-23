@@ -34,7 +34,6 @@ public class GuideActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private int maxPages = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +68,7 @@ public class GuideActivity extends AppCompatActivity {
     }
 
     public void toNextPage(View view){
-        if(mViewPager.getCurrentItem() == maxPages - 1){
+        if(mViewPager.getCurrentItem() == mViewPager.getAdapter().getCount() - 1){
             Intent intent = new Intent(
                     GuideActivity.this,
                     LogInActivity.class);
