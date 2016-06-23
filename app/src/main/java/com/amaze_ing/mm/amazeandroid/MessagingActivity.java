@@ -18,11 +18,8 @@ import com.amaze_ing.mm.amazeandroid.server_coms.SendMessageRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class MessagingActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private EditText messageField;
@@ -79,33 +76,23 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         });
     }
 
+    /**
+     *
+     * @param view
+     */
     public void sendMessage(View view){
         // get message content
-        final String messageContent = this.messageField.getText().toString();
+        String messageContent = this.messageField.getText().toString();
 
         if(!messageContent.isEmpty()){
-            // get message sender
-            String messageSender = getResources().getString(R.string.current_user_name);
-            String messageTime;
-
-            // get time
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            messageTime = sdf.format(new Date());
-
-            int userPic = Utilities.fetchUserImage(this);
-            this.messageList.add(new Message(messageContent, messageSender, userPic, messageTime));
-            this.messageAdapter.notifyDataSetChanged();
-            this.messageField.setText("");
-
-            new Thread() {
-                @Override
-                public void run() {
-                    SendMessageRequest.attemptSendMessage(messageContent);
-                }
-            }.start();
+            SendMessageAsync runner = new SendMessageAsync();
+            runner.execute(messageContent);
         }
     }
 
+    /**
+     *
+     */
     private void getMessages(){
         String currentUsername = Utilities.fetchUsername(this);
         if(currentUsername.length() == 0) {
@@ -113,10 +100,13 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         }
         this.messageList = new ArrayList<Message>();
 
-        AsyncTaskRunner runner = new AsyncTaskRunner();
+        FetchMessagesAsync runner = new FetchMessagesAsync();
         runner.execute();
     }
 
+    /**
+     *
+     */
     private void disconnect() {
         //TODO:: add disconnect code
 
@@ -129,14 +119,19 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         finish();
     }
 
+    /**
+     *
+     */
     @Override
     public void onRefresh() {
         this.messageCount += 10;
         getMessages();
     }
 
-    // AsyncTask for fetching messages from server
-    private class AsyncTaskRunner extends AsyncTask<Void, Void, String>{
+    /**
+     *
+     */
+    private class FetchMessagesAsync extends AsyncTask<Void, Void, String>{
         @Override
         protected String doInBackground(Void... params) {
             // attempt fetching messages from server
@@ -176,6 +171,41 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                                     R.layout.message_list_item,messageList);
             messageListView.setAdapter(messageAdapter);
             swipeRefresh.setRefreshing(false);
+        }
+    }
+
+    /**
+     *
+     */
+    private class SendMessageAsync extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... content) {
+            // attempt fetching messages from server
+            if(content.length != 1) return "";
+
+            return SendMessageRequest.attemptSendMessage(content[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // execution of result of Long time consuming operation
+            if(result.isEmpty()) return;
+
+            try{
+                JSONObject message = new JSONObject(result)
+                                        .getJSONObject(getString(R.string.json_message_wrapper));
+                messageList.add(new Message(
+                        message.getString(getString(R.string.json_message_content)),
+                        getString(R.string.current_user_name),
+                        message.getInt(getString(R.string.json_message_icon)),
+                        message.getString(getString(R.string.json_message_time))));
+
+                messageAdapter.notifyDataSetChanged();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            messageField.setText("");
         }
     }
 }

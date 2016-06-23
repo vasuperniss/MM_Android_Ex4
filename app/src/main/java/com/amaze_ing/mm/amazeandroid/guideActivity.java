@@ -34,6 +34,7 @@ public class GuideActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private int maxPages = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +52,31 @@ public class GuideActivity extends AppCompatActivity {
                 (RadioButton) findViewById(R.id.radio4),
                 (RadioButton) findViewById(R.id.radio5) };
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), radioButtons,
-                (FloatingActionButton) findViewById(R.id.fab));
+                (FloatingActionButton) findViewById(R.id.fab_skip),
+                (FloatingActionButton) findViewById(R.id.fab_next_page));
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
-    public void toNextPage(View view) {
+    public void skipAll(View view) {
         Intent intent = new Intent(
                 GuideActivity.this,
                 LogInActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void toNextPage(View view){
+        if(mViewPager.getCurrentItem() == maxPages - 1){
+            Intent intent = new Intent(
+                    GuideActivity.this,
+                    LogInActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1, true);
     }
 
     /**
@@ -111,14 +124,17 @@ public class GuideActivity extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         private final RadioButton[] radioButtons;
-        private final FloatingActionButton fab;
+        private final FloatingActionButton fabSkip;
+        private final FloatingActionButton fabNextPage;
         private Fragment[] fragments;
         private int currentPosition = 0;
 
-        public SectionsPagerAdapter(FragmentManager fm, RadioButton[] radioButtons, FloatingActionButton fab) {
+        public SectionsPagerAdapter(FragmentManager fm, RadioButton[] radioButtons,
+                                    FloatingActionButton fabSkip, FloatingActionButton fabNextPage) {
             super(fm);
             this.radioButtons = radioButtons;
-            this.fab = fab;
+            this.fabSkip = fabSkip;
+            this.fabNextPage = fabNextPage;
             fragments = new Fragment[5];
             fragments[0] = GuideFragment.newInstance(getString(R.string.guide_1), R.drawable.tutorial1);
             fragments[1] = GuideFragment.newInstance(getString(R.string.guide_2), R.drawable.tutorial2);
@@ -142,10 +158,15 @@ public class GuideActivity extends AppCompatActivity {
             this.radioButtons[this.currentPosition].setChecked(false);
             this.currentPosition = position;
             this.radioButtons[position].setChecked(true);
-            if (this.currentPosition == 4)
-                this.fab.setImageResource(R.drawable.ic_done_white_36dp);
-            else
-                this.fab.setImageResource(R.drawable.ic_done_all_white_36dp);
+
+            if (this.currentPosition == 4){
+                this.fabSkip.hide();
+                this.fabNextPage.setImageResource(R.drawable.ic_done_white_36dp);
+            }
+            else{
+                this.fabSkip.show();
+                this.fabNextPage.setImageResource(R.drawable.ic_keyboard_arrow_right_white_36dp);
+            }
         }
 
         @Override

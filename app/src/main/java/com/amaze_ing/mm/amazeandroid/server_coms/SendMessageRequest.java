@@ -5,11 +5,11 @@ package com.amaze_ing.mm.amazeandroid.server_coms;
  */
 public class SendMessageRequest {
 
-    public static boolean attemptSendMessage(String messageContent) {
+    public static String attemptSendMessage(String messageContent) {
         HttpRequest.HttpParameters parameters = new HttpRequest.HttpParameters();
         parameters.add("message", messageContent);
         String json = new HttpRequest().sendRequest("ex4AddMessage", parameters, "GET", true);
 
-        return json.contains("msg");
+        return json;
     }
 }

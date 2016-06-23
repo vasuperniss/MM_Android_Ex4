@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".GuideActivity"
-    android:background="@drawable/turorial_background">
+    android:background="@drawable/tutorial_background_new">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -43,62 +43,92 @@
             android:layout_marginBottom="42dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <RadioButton
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/radio1"
-            android:layout_marginLeft="24dp"
-            android:clickable="false"
-            android:checked="true"/>
+            android:layout_height="wrap_content" >
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radio2"
-            android:layout_toRightOf="@id/radio1"
-            android:layout_alignParentBottom="true"
-            android:clickable="false"
-            android:checked="false"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radio_buttons"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/fab_next_page">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radio3"
-            android:layout_toRightOf="@id/radio2"
-            android:layout_alignParentBottom="true"
-            android:clickable="false"
-            android:checked="false"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/radio1"
+                    android:clickable="false"
+                    android:checked="true"/>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radio4"
-            android:layout_toRightOf="@id/radio3"
-            android:layout_alignParentBottom="true"
-            android:clickable="false"
-            android:checked="false"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio2"
+                    android:layout_toRightOf="@id/radio1"
+                    android:layout_alignParentBottom="true"
+                    android:clickable="false"
+                    android:checked="false"/>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radio5"
-            android:layout_toRightOf="@id/radio4"
-            android:layout_alignParentBottom="true"
-            android:clickable="false"
-            android:checked="false"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio3"
+                    android:layout_toRightOf="@id/radio2"
+                    android:layout_alignParentBottom="true"
+                    android:clickable="false"
+                    android:checked="false"/>
 
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio4"
+                    android:layout_toRightOf="@id/radio3"
+                    android:layout_alignParentBottom="true"
+                    android:clickable="false"
+                    android:checked="false"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio5"
+                    android:layout_toRightOf="@id/radio4"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="14dp"
+                    android:clickable="false"
+                    android:checked="false"/>
+            </LinearLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:backgroundTint="@color/colorPrimary"
+                app:borderWidth="0dp"
+                android:src="@drawable/ic_done_all_white_36dp"
+                android:onClick="skipAll"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_next_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:backgroundTint="@color/colorPrimary"
+                app:borderWidth="0dp"
+                android:src="@drawable/ic_keyboard_arrow_right_white_36dp"
+                android:onClick="toNextPage"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
     </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:backgroundTint="@color/colorPrimary"
-        app:borderWidth="0dp"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_done_all_white_36dp"
-        android:onClick="toNextPage"/>
 
 </android.support.design.widget.CoordinatorLayout>
