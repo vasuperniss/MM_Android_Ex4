@@ -1,5 +1,7 @@
 package com.amaze_ing.mm.amazeandroid;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -56,10 +58,11 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             float delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 
-            if (mAccel > 10) {
+            // sensitivity
+            if (mAccel > 6) {
                 Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.shake_update_message), Toast.LENGTH_SHORT);
                 toast.show();
-                getMessages();
+                getMessages(true);
             }
         }
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -129,7 +132,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                                 30*1000, alarmIntent);
                                 */
 
-        getMessages();
+        getMessages(false);
     }
 
     @Override
@@ -161,14 +164,14 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     /**
      *
      */
-    private void getMessages(){
+    private void getMessages(boolean toUpdate){
         String currentUsername = Utilities.fetchUsername(this);
         if(currentUsername.length() == 0) {
             return;
         }
 
         FetchMessagesAsync runner = new FetchMessagesAsync();
-        runner.execute();
+        runner.execute(toUpdate);
     }
 
     /**
@@ -180,7 +183,6 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         if (alarmMgr!= null) {
             alarmMgr.cancel(alarmIntent);
         }
-
         // back to login activity
         Intent intent = new Intent(
                 MessagingActivity.this,
@@ -195,18 +197,18 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
      */
     @Override
     public void onRefresh() {
-        //this.messageCount += 10;
-        getMessages();
+        getMessages(false);
     }
 
     /**
      *
      */
-    private class FetchMessagesAsync extends AsyncTask<Void, Void, String>{
+    private class FetchMessagesAsync extends AsyncTask<Boolean, Void, String>{
         @Override
-        protected String doInBackground(Void... params) {
+        protected String doInBackground(Boolean... params) {
             // attempt fetching messages from server
-            return GetMessagesRequest.attemptGetMessages(messageList.size());
+            if(params.length != 1) return "";
+            return GetMessagesRequest.attemptGetMessages(messageList.size(), params[0]);
         }
 
         @Override

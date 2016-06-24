@@ -9,7 +9,7 @@ import org.json.JSONObject;
  */
 public class GetMessagesRequest {
 
-    public static String attemptGetMessages(int messagesToGet) {
+    public static String attemptGetMessages(int messagesToGet, boolean requestUpdate) {
 
         HttpRequest.HttpParameters parameters = new HttpRequest.HttpParameters();
         parameters.add("currentNumOfMessages", Integer.toString(messagesToGet));
@@ -22,7 +22,11 @@ public class GetMessagesRequest {
             if(result.equals("true")){
                 return "";
             }
-            messagesToGet += 10;
+            if(requestUpdate){
+                messagesToGet = 10;
+            }else {
+                messagesToGet += 10;
+            }
 
             parameters = new HttpRequest.HttpParameters();
             parameters.add("messagesToGet", Integer.toString(messagesToGet));
