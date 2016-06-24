@@ -1,7 +1,5 @@
 package com.amaze_ing.mm.amazeandroid;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -58,7 +56,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             float delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 
-            if (mAccel > 6) {
+            if (mAccel > 10) {
                 Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.shake_update_message), Toast.LENGTH_SHORT);
                 toast.show();
                 getMessages();
@@ -101,7 +99,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         });
         // start refresh animation while messages are loaded from the server for the first time
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.message_swipe_refresh);
-        swipeRefresh.setDistanceToTriggerSync(500);
+        swipeRefresh.setDistanceToTriggerSync(250);
         swipeRefresh.post(new Runnable() {
             @Override public void run() {
                 swipeRefresh.setRefreshing(true);
