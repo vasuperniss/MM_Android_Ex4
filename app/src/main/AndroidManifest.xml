@@ -3,6 +3,7 @@
     package="com.amaze_ing.mm.amazeandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".App"
@@ -41,6 +42,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <service
+            android:name=".UpdaterService"
+            android:enabled="true"
+            android:process=":updater_service" >
+        </service>
+        <receiver android:name=".UpdaterAlarm" />
     </application>
 
 </manifest>

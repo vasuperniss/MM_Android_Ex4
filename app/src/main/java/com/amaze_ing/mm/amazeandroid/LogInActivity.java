@@ -41,6 +41,14 @@ public class LogInActivity extends AppCompatActivity {
     public void login(View view){
         final String username = this.username.getText().toString();
         final String password = this.password.getText().toString();
+        if("".equals(username) || "".equals(password)){
+            Context context = getApplicationContext();
+            CharSequence text = getString(R.string.register_err);
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            return;
+        }
         ((Button) findViewById(R.id.login_btn)).setEnabled(false);
         ((Button) findViewById(R.id.register_btn)).setEnabled(false);
         this.progBar.setVisibility(View.VISIBLE);
