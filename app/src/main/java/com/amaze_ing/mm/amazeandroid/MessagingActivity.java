@@ -1,8 +1,10 @@
 package com.amaze_ing.mm.amazeandroid;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -20,6 +22,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -49,15 +52,19 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     private SwipeRefreshLayout swipeRefresh;
     private MessageListAdapter messageAdapter;
     private List<Message> messageList;
+
     private SensorManager mSensorManager;
     private float mAccel;
     private float mAccelCurrent;
     private float mAccelLast;
+
     private Intent updateServiceIntent;
+    private NotificationCompat.Builder notificationBuilder;
+    private int notificationID = 1;
+
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            System.out.println("service messages update");
             getMessages(true);
         }
     };
@@ -91,14 +98,124 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         this.messageListView = (ListView) findViewById(R.id.message_list);
         this.messageList = new ArrayList<Message>();
 
-        // sensors
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-        mAccel = 0.00f;
-        mAccelCurrent = SensorManager.GRAVITY_EARTH;
-        mAccelLast = SensorManager.GRAVITY_EARTH;
+        // notification
+        this.notificationBuilder = new NotificationCompat.Builder(this);
+        this.notificationBuilder.setSmallIcon(R.drawable.ic_sms_black_36dp);
+        this.notificationBuilder.setContentTitle(getString(R.string.notification_content_title));
+        this.notificationBuilder.setContentText(getString(R.string.notification_content_text));
 
+        // sensors
+        initSensors();
         // UI elements
+        initUi();
+        // recievers
+        initReceivers();
+
+        getMessages(false);
+    }
+
+    private void sendNotification(){
+        // explicit intent for messaging activity
+        Intent resultIntent = new Intent(this, MessagingActivity.class);
+
+        // ensure that navigating backward from the messaging activity leads to home screen
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MessagingActivity.class);
+
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        notificationBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(notificationID, notificationBuilder.build());
+    }
+
+    /**
+     *
+     * @param view
+     */
+    public void sendMessage(View view){
+        // get message content
+        String messageContent = this.messageField.getText().toString();
+        if(!messageContent.isEmpty()){
+            SendMessageAsync runner = new SendMessageAsync();
+            runner.execute(messageContent);
+        }
+    }
+
+    /**
+     *
+     */
+    private void getMessages(boolean toUpdate){
+        String currentUsername = Utilities.fetchUsername(this);
+        if(currentUsername.length() == 0) {
+            return;
+        }
+        FetchMessagesAsync runner = new FetchMessagesAsync();
+        runner.execute(toUpdate);
+    }
+
+    /**
+     *
+     */
+    private void disconnect() {
+        //TODO:: add disconnect code
+        // back to login activity
+        Intent intent = new Intent(
+                MessagingActivity.this,
+                LogInActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+        finish();
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void onRefresh() {
+        getMessages(false);
+    }
+
+    /**
+     *
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    /**
+     *
+     */
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
+    }
+
+    /**
+     *
+     */
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(broadcastReceiver);
+        stopService(updateServiceIntent);
+        super.onDestroy();
+    }
+
+    /**
+     *
+     */
+    private void initUi(){
         Toolbar myToolbar = (Toolbar) findViewById(R.id.messaging_toolbar);
         //setSupportActionBar(myToolbar);
         myToolbar.inflateMenu(R.menu.menu_guide);
@@ -131,85 +248,27 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                 sendMessage(v);
             }
         });
+    }
 
-        // TODO: finish background update service
+    /**
+     *
+     */
+    private void initReceivers(){
         registerReceiver(this.broadcastReceiver,
-                                new IntentFilter(getString(R.string.update_alarm_intent)));
+                new IntentFilter(getString(R.string.update_alarm_intent)));
         updateServiceIntent = new Intent(this, UpdaterService.class);
         startService(updateServiceIntent);
-
-        getMessages(false);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mSensorManager.registerListener(mSensorListener,
-                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    @Override
-    protected void onPause() {
-        mSensorManager.unregisterListener(mSensorListener);
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        unregisterReceiver(broadcastReceiver);
-        stopService(updateServiceIntent);
-        super.onDestroy();
-    }
-
-    /**
-     *
-     * @param view
-     */
-    public void sendMessage(View view){
-        // get message content
-        String messageContent = this.messageField.getText().toString();
-
-        if(!messageContent.isEmpty()){
-            SendMessageAsync runner = new SendMessageAsync();
-            runner.execute(messageContent);
-        }
     }
 
     /**
      *
      */
-    private void getMessages(boolean toUpdate){
-        String currentUsername = Utilities.fetchUsername(this);
-        if(currentUsername.length() == 0) {
-            return;
-        }
-
-        FetchMessagesAsync runner = new FetchMessagesAsync();
-        runner.execute(toUpdate);
-    }
-
-    /**
-     *
-     */
-    private void disconnect() {
-        //TODO:: add disconnect code
-
-        // back to login activity
-        Intent intent = new Intent(
-                MessagingActivity.this,
-                LogInActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-        finish();
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void onRefresh() {
-        getMessages(false);
+    private void initSensors(){
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        mAccel = 0.00f;
+        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+        mAccelLast = SensorManager.GRAVITY_EARTH;
     }
 
     /**
@@ -254,6 +313,9 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                             iterator.getInt(getString(R.string.json_message_icon)),
                             iterator.getString(getString(R.string.json_message_time))));
                 }
+
+                // notify user
+                sendNotification();
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -300,6 +362,4 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             messageField.setText("");
         }
     }
-
-
 }
