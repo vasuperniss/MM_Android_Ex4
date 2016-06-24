@@ -1,5 +1,7 @@
 package com.amaze_ing.mm.amazeandroid;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -25,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -42,6 +45,8 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     private float mAccel;
     private float mAccelCurrent;
     private float mAccelLast;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
 
     private final SensorEventListener mSensorListener = new SensorEventListener() {
         public void onSensorChanged(SensorEvent se) {
@@ -53,7 +58,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             float delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 
-            if (mAccel > 2) {
+            if (mAccel > 6) {
                 Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.shake_update_message), Toast.LENGTH_SHORT);
                 toast.show();
                 getMessages();
@@ -113,6 +118,19 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
             }
         });
 
+        // TODO: finish background update service
+        /*
+        Calendar calendar = Calendar.getInstance();
+        int time = 5*60;
+        Context thisContext = getApplicationContext();
+        alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(thisContext, MessagingActivity.class);
+        alarmIntent = PendingIntent.getBroadcast(thisContext, 0, intent, 0);
+
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                30*1000, alarmIntent);
+                                */
+
         getMessages();
     }
 
@@ -160,6 +178,10 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
      */
     private void disconnect() {
         //TODO:: add disconnect code
+
+        if (alarmMgr!= null) {
+            alarmMgr.cancel(alarmIntent);
+        }
 
         // back to login activity
         Intent intent = new Intent(
