@@ -76,6 +76,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if (!this.isRunning)
                     // app is off screen -> no need to update anything
                     continue;
+                // TODO: change time from 100 to 1000
                 if ((time+=16) < 100)
                     // a full second is yet to pass -> no need to update
                     continue;
@@ -103,7 +104,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                                     msgTxt.getTextSize() + 4);
                         } else {
                             //TODO:: move to other Activity
-
                             if(firstStartup()){
                                 // first startup -> go to tutorial
                                 Intent intent = new Intent(

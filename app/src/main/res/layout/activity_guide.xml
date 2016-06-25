@@ -52,6 +52,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/radio_buttons"
+                android:layout_marginTop="12dp"
+                android:layout_alignBottom="@+id/fab_next_page"
+                android:layout_alignTop="@+id/fab_next_page"
                 android:layout_alignParentBottom="true"
                 android:layout_toStartOf="@+id/fab_next_page">
 
