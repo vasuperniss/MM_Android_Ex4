@@ -44,13 +44,13 @@ public class GuideActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        RadioButton[] radioButtons = new RadioButton[] {
-                (RadioButton) findViewById(R.id.radio1),
-                (RadioButton) findViewById(R.id.radio2),
-                (RadioButton) findViewById(R.id.radio3),
-                (RadioButton) findViewById(R.id.radio4),
-                (RadioButton) findViewById(R.id.radio5) };
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), radioButtons,
+        ImageView[] circles = new ImageView[] {
+                (ImageView) findViewById(R.id.circle1),
+                (ImageView) findViewById(R.id.circle2),
+                (ImageView) findViewById(R.id.circle3),
+                (ImageView) findViewById(R.id.circle4),
+                (ImageView) findViewById(R.id.circle5) };
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), circles,
                 (FloatingActionButton) findViewById(R.id.fab_skip),
                 (FloatingActionButton) findViewById(R.id.fab_next_page));
 
@@ -122,16 +122,16 @@ public class GuideActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final RadioButton[] radioButtons;
+        private final ImageView[] circles;
         private final FloatingActionButton fabSkip;
         private final FloatingActionButton fabNextPage;
         private Fragment[] fragments;
         private int currentPosition = 0;
 
-        public SectionsPagerAdapter(FragmentManager fm, RadioButton[] radioButtons,
+        public SectionsPagerAdapter(FragmentManager fm, ImageView[] circles,
                                     FloatingActionButton fabSkip, FloatingActionButton fabNextPage) {
             super(fm);
-            this.radioButtons = radioButtons;
+            this.circles = circles;
             this.fabSkip = fabSkip;
             this.fabNextPage = fabNextPage;
             fragments = new Fragment[5];
@@ -154,9 +154,9 @@ public class GuideActivity extends AppCompatActivity {
             super.setPrimaryItem(container, position, object);
             if (position == this.currentPosition)
                 return;
-            this.radioButtons[this.currentPosition].setChecked(false);
+            this.circles[this.currentPosition].setImageResource(R.drawable.circle_black);
             this.currentPosition = position;
-            this.radioButtons[position].setChecked(true);
+            this.circles[position].setImageResource(R.drawable.circle_green);
 
             if (this.currentPosition == 4){
                 this.fabSkip.hide();
