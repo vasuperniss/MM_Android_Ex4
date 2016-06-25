@@ -131,7 +131,6 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // mId allows you to update the notification later on.
         mNotificationManager.notify(notificationID, notificationBuilder.build());
     }
 

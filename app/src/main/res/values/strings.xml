@@ -13,10 +13,10 @@
 
     <!-- splash screen strings -->
     <string name="splash_app_name">MM</string>
-    <string name="splash_message_1">Loading...</string>
-    <string name="splash_message_2">Connecting to server...</string>
-    <string name="splash_message_3">Getting nuclear launch codes...</string>
-    <string name="splash_message_4">Launching missles...</string>
+    <string name="splash_message_1">Loading</string>
+    <string name="splash_message_2">Connecting to server</string>
+    <string name="splash_message_3">Feeding the monkeys</string>
+    <string name="splash_message_4">Testing your patience</string>
 
     <!-- Tutorial strings -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
