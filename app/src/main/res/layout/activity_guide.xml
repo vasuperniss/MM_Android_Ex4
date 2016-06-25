@@ -58,50 +58,47 @@
                 android:layout_alignParentBottom="true"
                 android:layout_toStartOf="@+id/fab_next_page">
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/circle_green"
                     android:layout_alignParentBottom="true"
-                    android:id="@+id/radio1"
-                    android:clickable="false"
-                    android:checked="true"/>
+                    android:id="@+id/circle1"
+                    android:layout_marginBottom="10dp" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/radio2"
-                    android:layout_toRightOf="@id/radio1"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:checked="false"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/circle_black"
+                    android:id="@+id/circle2"
+                    android:layout_toRightOf="@id/circle1"
+                    android:layout_alignParentBottom="true" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/radio3"
-                    android:layout_toRightOf="@id/radio2"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:checked="false"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/circle_black"
+                    android:id="@+id/circle3"
+                    android:layout_toRightOf="@id/circle2"
+                    android:layout_alignParentBottom="true" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/radio4"
-                    android:layout_toRightOf="@id/radio3"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:checked="false"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/circle_black"
+                    android:id="@+id/circle4"
+                    android:layout_toRightOf="@id/circle3"
+                    android:layout_alignParentBottom="true" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/radio5"
-                    android:layout_toRightOf="@id/radio4"
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/circle_black"
+                    android:id="@+id/circle5"
+                    android:layout_toRightOf="@id/circle4"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="14dp"
-                    android:clickable="false"
-                    android:checked="false"/>
+                    android:layout_marginEnd="24dp" />
+
             </LinearLayout>
 
             <android.support.design.widget.FloatingActionButton
