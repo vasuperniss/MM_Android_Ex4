@@ -1,11 +1,17 @@
 package com.amaze_ing.mm.amazeandroid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.amaze_ing.mm.amazeandroid.server_coms.LoginRequest;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -13,6 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private String userPrefs = "userPrefs";
 
     private boolean isRunning;
+    private boolean connnected;
     private int messageCounter;
     private Thread updateThread;
     private Thread loadingThread;
@@ -25,7 +32,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         this.msgTxt = (TextView) findViewById(R.id.splash_text_view);
         // initialize variables for message cycling
         this.isRunning = false;
+        this.connnected = false;
         this.messageCounter = 1;
+
         // create Thread for cycling Messages every second
         this.updateThread = new Thread() {
 
@@ -34,17 +43,18 @@ public class SplashScreenActivity extends AppCompatActivity {
                 update(updateThread);
             }
         };
+
         // create Thread for loading user data and connecting to server
         this.loadingThread = new Thread() {
 
             @Override
             public void run() {
-                loadFilesAndConnect(loadingThread);
+                loadFilesAndConnect();
             }
         };
         // starting both threads
-        this.updateThread.start();
         this.loadingThread.start();
+        this.updateThread.start();
     }
 
     @Override
@@ -61,23 +71,22 @@ public class SplashScreenActivity extends AppCompatActivity {
         this.isRunning = false;
     }
 
-    private void loadFilesAndConnect(Thread t) {
-        //TODO:: load the user info data
+    private void loadFilesAndConnect() {
+        final String username = Utilities.fetchUsername(this);
+        final String password = Utilities.fetchPassword(this);
 
-        //TODO:: if exists -> try to connect to server
+        connnected = new LoginRequest().attemptLogin(username, password);
     }
 
     private void update(Thread t) {
         int time = 0;
-
         try {
             while (!t.isInterrupted()) {
                 Thread.sleep(16);
                 if (!this.isRunning)
                     // app is off screen -> no need to update anything
                     continue;
-                // TODO: change time from 100 to 1000
-                if ((time+=16) < 100)
+                if ((time+=16) < 1000)
                     // a full second is yet to pass -> no need to update
                     continue;
                 // second passed -> reset timer and increase message counter
@@ -100,25 +109,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                                     msgTxt.setText(R.string.splash_message_4);
                                     break;
                             }
-                            msgTxt.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                                    msgTxt.getTextSize() + 4);
+                            msgTxt.setTextSize(TypedValue.COMPLEX_UNIT_PX, msgTxt.getTextSize() + 4);
                         } else {
-                            //TODO:: move to other Activity
-                            if(firstStartup()){
-                                // first startup -> go to tutorial
-                                Intent intent = new Intent(
-                                        SplashScreenActivity.this,
-                                        GuideActivity.class);
-                                startActivity(intent);
-                            }
-                            else{
-                                // not connected -> go to log in Activity
-                                Intent intent = new Intent(
-                                        SplashScreenActivity.this,
-                                        GuideActivity.class);
-                                startActivity(intent);
-                            }
-                            // close the current Activity
+                            switchToScreen();
                             finish();
                         }
                     }
@@ -147,5 +140,27 @@ public class SplashScreenActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    private void switchToScreen(){
+        Intent intent;
+
+        // first startup -> go to tutorial
+        if(firstStartup()){
+            intent = new Intent(SplashScreenActivity.this, GuideActivity.class);
+            startActivity(intent);
+        }
+        else{
+            // connected -> go to messaging screen
+            if(connnected){
+                intent = new Intent(SplashScreenActivity.this, MessagingActivity.class);
+                startActivity(intent);
+            }
+            // not connected -> go to login screen
+            else {
+                intent = new Intent(SplashScreenActivity.this, LogInActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 }
