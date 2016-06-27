@@ -1,7 +1,5 @@
 package com.amaze_ing.mm.amazeandroid.server_coms;
 
-import com.amaze_ing.mm.amazeandroid.R;
-
 import org.json.JSONObject;
 
 /**
@@ -9,10 +7,18 @@ import org.json.JSONObject;
  */
 public class GetMessagesRequest {
 
+    /**
+     * Attempt get messages string.
+     *
+     * @param messagesToGet the number of messages to get
+     * @param requestUpdate the request update if to add 10 more
+     * @return the string json result of the request
+     */
     public static String attemptGetMessages(int messagesToGet, boolean requestUpdate) {
 
         HttpRequest.HttpParameters parameters = new HttpRequest.HttpParameters();
         parameters.add("currentNumOfMessages", Integer.toString(messagesToGet));
+        // check if the app has the same number of messages as the server
         String json = new HttpRequest().sendRequest("ex4CheckIfUpdated", parameters, "GET", true);
         String result;
 

@@ -109,9 +109,11 @@ public class HttpRequest {
                 if (i != 0)
                     result.append("&");
                 try {
-                    result.append(URLEncoder.encode(this.paramNames.get(i), "UTF-8"));
+                    result.append(URLEncoder.encode(this.paramNames.get(i),
+                                                                    "UTF-8"));
                     result.append("=");
-                    result.append(URLEncoder.encode(this.paramValues.get(i), "UTF-8"));
+                    result.append(URLEncoder.encode(this.paramValues.get(i),
+                                                                    "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
