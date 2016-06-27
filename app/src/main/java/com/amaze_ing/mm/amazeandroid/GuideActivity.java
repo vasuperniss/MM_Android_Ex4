@@ -75,7 +75,8 @@ public class GuideActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1, true);
+        else
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1, true);
     }
 
     /**
@@ -135,6 +136,7 @@ public class GuideActivity extends AppCompatActivity {
             this.fabSkip = fabSkip;
             this.fabNextPage = fabNextPage;
             fragments = new Fragment[5];
+
             fragments[0] = GuideFragment.newInstance(getString(R.string.guide_1), R.drawable.tutorial1);
             fragments[1] = GuideFragment.newInstance(getString(R.string.guide_2), R.drawable.tutorial2);
             fragments[2] = GuideFragment.newInstance(getString(R.string.guide_3), R.drawable.tutorial3);

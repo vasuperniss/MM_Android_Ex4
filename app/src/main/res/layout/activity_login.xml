@@ -46,28 +46,26 @@
             android:paddingBottom="8dp" />
 
         <EditText
-            android:layout_width="180dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:id="@+id/r_username_txtfield"
             android:textColor="@color/colorButtons"
             android:layout_above="@+id/r_password_txtfield"
-            android:layout_alignEnd="@+id/r_password_txtfield"
-            android:layout_toEndOf="@+id/r_password_txt"
-            android:layout_alignStart="@+id/r_password_txtfield"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="-4dp" />
+            android:layout_marginBottom="-4dp"
+            android:layout_toEndOf="@+id/r_username_txt" />
 
         <EditText
-            android:layout_width="180dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/r_password_txtfield"
             android:textColor="@color/colorButtons"
             android:layout_above="@+id/login_btn"
-            android:layout_toEndOf="@+id/r_password_txt"
-            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/r_username_txt"
             android:layout_alignParentEnd="true"
             android:layout_alignBottom="@+id/r_password_txt"
             android:layout_marginBottom="-4dp" />
@@ -90,7 +88,7 @@
             android:onClick="goToRegister"
             android:theme="@style/NormalTheme.Button"
             android:layout_below="@+id/r_password_txt"
-            android:layout_toLeftOf="@id/register_btn" />
+            android:layout_toStartOf="@id/register_btn" />
     </RelativeLayout>
 
     <ProgressBar

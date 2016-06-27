@@ -1,0 +1,65 @@
+<resources>
+    <!-- global strings -->
+    <string name="app_name">AMaze</string>
+    <string name="logoDesc">logo</string>
+    <string name="title_activity_guide">guideActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- Utilities strings -->
+    <string name="utils_username">ששם משתמש</string>
+    <string name="utils_password">סיסמא</string>
+    <string name="utils_userImage">userImage</string>
+
+    <!-- splash screen strings -->
+    <string name="splash_app_name">MM</string>
+    <string name="splash_message_1">טוען</string>
+    <string name="splash_message_2">ממתחבר לשרת</string>
+    <string name="splash_message_3">מאכיל את הקופים</string>
+    <string name="splash_message_4">בודק את הסבלנות שלכם</string>
+
+    <!-- Tutorial strings -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="guide_1">ברוכים הבאים ל-MM\n
+                            המדריך הזה יכיר לכם את האפליקציה</string>
+    <string name="guide_2">כדי להתנתק מהמשתמש הנוכחי,\n
+                            לחצו על הכפתור המוצג.</string>
+    <string name="guide_3">הכניסו את תוכן ההודעה שלכם בחלון הטקסט.</string>
+    <string name="guide_4">לחצו על הכפתור המוצג כדי לשלוח הודעה.</string>
+    <string name="guide_5">נערו את המכשיר במסך ההודעות כדי לבצע עדכון.</string>
+
+    <!-- login strings -->
+    <string name="login_username">שם משתמש</string>
+    <string name="login_password">סיסמא</string>
+    <string name="login_button_text">התחברות</string>
+    <string name="register_button_text">הרשמה</string>
+
+    <!-- registration strings -->
+    <string name="r_email">אימייל</string>
+    <string name="r_name">שם</string>
+    <string name="rl_password">סיסמא</string>
+    <string name="rl_username">שם משתמש</string>
+    <string name="r_icon">אייקון</string>
+    <string name="register_btn">הרשמה</string>
+    <string name="clear_btn">נקה</string>
+    <string name="register_err">מלאו את כל השדות לפני שליחה</string>
+
+    <!-- Messaging strings-->
+    <string name="current_user_name">אתה</string>
+    <string name="login_err">שם משתמש או סיסמא שגויים</string>
+    <string name="register_err_2">שם משתמש תפוס</string>
+    <string name="title_activity_login_activity_new">AMaze</string>
+    <string name="shake_update_message">טוען הודות חדשות</string>
+    <string name="notification_content_title">הודעות חדשות</string>
+    <string name="notification_content_text">הקש כדי לראות</string>
+    <string name="update_alarm_intent">BG_MESSAGE_UPDATE</string>
+
+    <string name="json_all_messages_wrapper">messages</string>
+    <string name="json_message_wrapper">msg</string>
+    <string name="json_message_content">message</string>
+    <string name="json_message_time">time</string>
+    <string name="json_message_username">username</string>
+    <string name="json_message_name">name</string>
+    <string name="json_message_icon">icon</string>
+    <string name="json_exception">Json Exception occurred</string>
+</resources>

@@ -45,4 +45,11 @@ public class Utilities {
 
         return sharedPref.getString(usernameUtils, "");
     }
+
+    public static String fetchPassword(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences(userPrefs, Context.MODE_PRIVATE);
+        String password = context.getResources().getString(R.string.utils_password);
+
+        return sharedPref.getString(password, "");
+    }
 }

@@ -1,6 +1,7 @@
 package com.amaze_ing.mm.amazeandroid;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -52,6 +53,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     private SwipeRefreshLayout swipeRefresh;
     private MessageListAdapter messageAdapter;
     private List<Message> messageList;
+    private boolean backgroundUpdate;
 
     private SensorManager mSensorManager;
     private float mAccel;
@@ -65,6 +67,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            backgroundUpdate = true;
             getMessages(true);
         }
     };
@@ -97,6 +100,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         this.messageField = (EditText) findViewById(R.id.message_text);
         this.messageListView = (ListView) findViewById(R.id.message_list);
         this.messageList = new ArrayList<Message>();
+        this.backgroundUpdate = false;
 
         // notification
         this.notificationBuilder = new NotificationCompat.Builder(this);
@@ -128,11 +132,12 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                 stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         notificationBuilder.setContentIntent(resultPendingIntent);
+
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        // mId allows you to update the notification later on.
-        mNotificationManager.notify(notificationID, notificationBuilder.build());
+        Notification notification = notificationBuilder.build();
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        mNotificationManager.notify(notificationID, notification);
     }
 
     /**
@@ -164,7 +169,6 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
      *
      */
     private void disconnect() {
-        //TODO:: add disconnect code
         // back to login activity
         Intent intent = new Intent(
                 MessagingActivity.this,
@@ -315,7 +319,10 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                 }
 
                 // notify user
-                sendNotification();
+                if(backgroundUpdate){
+                    sendNotification();
+                    backgroundUpdate = false;
+                }
             }
             catch (Exception e) {
                 e.printStackTrace();
