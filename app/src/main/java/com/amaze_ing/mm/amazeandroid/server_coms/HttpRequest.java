@@ -1,10 +1,7 @@
 package com.amaze_ing.mm.amazeandroid.server_coms;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -14,6 +11,7 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
+ * The class Http Request
  * Created by user on 20/06/2016.
  */
 public class HttpRequest {
