@@ -52,6 +52,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     private MessageListAdapter messageAdapter;
     private List<Message> messageList;
     private boolean backgroundUpdate;
+    private static int numOfMessages = 0;
 
     private SensorManager mSensorManager;
     private float mAccel;
@@ -127,6 +128,9 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         getMessages(false);
     }
 
+    public static int getNumOfMessages(){ return numOfMessages; }
+    public static void setNumOfMessages(int num){ numOfMessages = num; }
+
     private void sendNotification(){
         // explicit intent for messaging activity
         Intent resultIntent = new Intent(this, MessagingActivity.class);
@@ -157,6 +161,8 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     public void sendMessage(View view){
         // get message content
         String messageContent = this.messageField.getText().toString();
+        ++numOfMessages;
+
         if(!messageContent.isEmpty()){
             SendMessageAsync runner = new SendMessageAsync();
             runner.execute(messageContent);
@@ -320,12 +326,15 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                             iterator.getInt(getString(R.string.json_message_icon)),
                             iterator.getString(getString(R.string.json_message_time))));
                 }
+                String jsonTotalMessages = reader.getString(getString(R.string.json_num_of_messages));
+                int numMessages = Integer.valueOf(jsonTotalMessages);
 
-                // notify user
-                if(backgroundUpdate){
+                // notify user when number of stored messages is smaller than on the server
+                if(backgroundUpdate && numOfMessages < numMessages){
                     sendNotification();
                     backgroundUpdate = false;
                 }
+                numOfMessages = numMessages;
             }
             catch (Exception e) {
                 System.out.println("fetch messages exception");
