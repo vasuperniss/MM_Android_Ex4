@@ -1,25 +1,36 @@
 package com.amaze_ing.mm.amazeandroid;
-
+/**
+ * exe 4
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
+ */
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.amaze_ing.mm.amazeandroid.server_coms.LoginRequest;
 
+/**
+ * Login activity.
+ */
 public class LogInActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
     private ProgressBar progBar;
 
+    /**
+     * fetches the EditText fields, and progress bar
+     * and creates the activity.
+     *
+     * @param  savedInstanceState the application state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +40,11 @@ public class LogInActivity extends AppCompatActivity {
         this.progBar = (ProgressBar) findViewById(R.id.login_prog_bar);
     }
 
+    /**
+     * switches to Register activity.
+     *
+     * @param view the view.
+     */
     public void goToRegister(View view) {
         Intent intent = new Intent(
                 LogInActivity.this,
@@ -38,6 +54,11 @@ public class LogInActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * checks if user has filled the text fields, and attempts to login.
+     *
+     * @param view the view
+     */
     public void login(View view){
         final String username = this.username.getText().toString();
         final String password = this.password.getText().toString();
@@ -61,6 +82,13 @@ public class LogInActivity extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * Attempts to login. If successful the messaging activity is loaded.
+     * Otherwise, a toast message pops up to notify the user to fill in the missing information.
+     *
+     * @param username the username
+     * @param password the password
+     */
     public void doLogin(final String username, final String password) {
         final int userPic = Utilities.fetchUserImage(this);
         final boolean result = new LoginRequest().attemptLogin(username,

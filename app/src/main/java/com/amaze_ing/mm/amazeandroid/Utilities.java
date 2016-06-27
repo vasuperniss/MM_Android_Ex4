@@ -1,5 +1,9 @@
 package com.amaze_ing.mm.amazeandroid;
-
+/**
+ * exe 4
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
+ */
 import android.content.Context;
 import android.content.SharedPreferences;
 import static android.provider.Settings.Global.getString;
@@ -9,8 +13,19 @@ import static android.provider.Settings.Global.getString;
  */
 public class Utilities {
 
+    /**
+     * The constant userPrefs.
+     */
     public static String userPrefs = "userPrefs";
 
+    /**
+     * Saves login credentials.
+     *
+     * @param context  the context
+     * @param username the username
+     * @param password the password
+     * @param userPic  the user pic
+     */
     public static void saveLoginCredentials(Context context,
                                                 String username, String password, int userPic){
         SharedPreferences sharedPref = context.getSharedPreferences(userPrefs, Context.MODE_PRIVATE);
@@ -32,6 +47,12 @@ public class Utilities {
         ed.commit();
     }
 
+    /**
+     * Fetches user image from shared preferences.
+     *
+     * @param context the context
+     * @return the int
+     */
     public static int fetchUserImage(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences(userPrefs, Context.MODE_PRIVATE);
         String userImageUtils = context.getResources().getString(R.string.utils_userImage);
@@ -39,6 +60,12 @@ public class Utilities {
         return sharedPref.getInt(userImageUtils, 1);
     }
 
+    /**
+     * Fetches username string from shared preferences.
+     *
+     * @param context the context
+     * @return the string
+     */
     public static String fetchUsername(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences(userPrefs, Context.MODE_PRIVATE);
         String usernameUtils = context.getResources().getString(R.string.utils_username);
@@ -46,6 +73,12 @@ public class Utilities {
         return sharedPref.getString(usernameUtils, "");
     }
 
+    /**
+     * Fetches password string from shared preferences
+     *
+     * @param context the context
+     * @return the string
+     */
     public static String fetchPassword(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences(userPrefs, Context.MODE_PRIVATE);
         String password = context.getResources().getString(R.string.utils_password);

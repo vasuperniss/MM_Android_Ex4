@@ -1,8 +1,12 @@
 package com.amaze_ing.mm.amazeandroid;
+/**
+ * exe 4
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
+ */
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +18,7 @@ import java.util.Random;
 import java.util.List;
 
 /**
- * Created by Max on 19/06/2016.
+ * The message list adapter.
  */
 public class MessageListAdapter extends ArrayAdapter {
 
@@ -22,6 +26,13 @@ public class MessageListAdapter extends ArrayAdapter {
     private int id;
     private List<Message> items ;
 
+    /**
+     * Instantiates a new Message list adapter.
+     *
+     * @param context            the context
+     * @param textViewResourceId the text view resource id
+     * @param list               the list
+     */
     public MessageListAdapter(Context context, int textViewResourceId , List<Message> list )
     {
         super(context, textViewResourceId, list);
@@ -30,6 +41,13 @@ public class MessageListAdapter extends ArrayAdapter {
         items = list ;
     }
 
+    /**
+     * Gets the view.
+     * @param position view position in list.
+     * @param v the view.
+     * @param parent view group.
+     * @return the view in the given position in the list.
+     */
     @Override
     public View getView(int position, View v, ViewGroup parent)
     {
@@ -70,11 +88,20 @@ public class MessageListAdapter extends ArrayAdapter {
         return mView;
     }
 
+    /**
+     * generate a random dark color.
+     * @return the color.
+     */
     private int generateRandomColor(){
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(185), rnd.nextInt(185), rnd.nextInt(185));
     }
 
+    /**
+     * sets the imageView to a have an image.
+     * @param imageView the users image in the message.
+     * @param imageName the image's name.
+     */
     private void setSenderImage(ImageView imageView, String imageName){
         Context context = imageView.getContext();
         int id = context.getResources().getIdentifier(imageName, "drawable",

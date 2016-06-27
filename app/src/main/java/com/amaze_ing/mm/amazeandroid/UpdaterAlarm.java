@@ -1,10 +1,15 @@
 package com.amaze_ing.mm.amazeandroid;
-
+/**
+ * exe 4
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
+ */
 import android.content.BroadcastReceiver;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.PowerManager;
 import android.widget.Toast;
 
@@ -13,6 +18,14 @@ import android.widget.Toast;
  */
 public class UpdaterAlarm extends BroadcastReceiver {
 
+    private boolean isRegistered = false;
+
+    /**
+     * when an alarm is triggered a broadcast is sent to messaging activity which notifices the user.
+     *
+     * @param context the context
+     * @param intent the intent
+     */
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -25,14 +38,25 @@ public class UpdaterAlarm extends BroadcastReceiver {
         wl.release();
     }
 
+    /**
+     * Sets the alarm with an interval of 5 mins.
+     *
+     * @param context the context
+     */
     public void SetAlarm(Context context)
     {
         AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, UpdaterAlarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 5, pi); // Millisec * Second * Minute
+        int interval = 1000 * 60 * 5;
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + interval, interval, pi); // Millisec * Second * Minute
     }
 
+    /**
+     * Cancels the alarm.
+     *
+     * @param context the context
+     */
     public void CancelAlarm(Context context)
     {
         Intent intent = new Intent(context, UpdaterAlarm.class);

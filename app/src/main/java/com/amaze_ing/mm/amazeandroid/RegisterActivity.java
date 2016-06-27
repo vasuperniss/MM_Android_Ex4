@@ -1,5 +1,9 @@
 package com.amaze_ing.mm.amazeandroid;
-
+/**
+ * exe 4
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
+ */
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +19,9 @@ import android.widget.Toast;
 
 import com.amaze_ing.mm.amazeandroid.server_coms.RegisterRequest;
 
+/**
+ * The Register activity.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText username;
@@ -24,6 +31,11 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private ProgressBar progBar;
 
+    /**
+     * fetches the registration fields.
+     *
+     * @param  savedInstanceState the application state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +49,12 @@ public class RegisterActivity extends AppCompatActivity {
         progBar = (ProgressBar) findViewById(R.id.register_prog_bar);
     }
 
+    /**
+     * checks if user entered all needed information, and attempts to register.
+     * if one of the fields is empty a toast pops up to let the user know.
+     *
+     * @param view the view
+     */
     public void register(View view) {
         final String usernameTxt = username.getText().toString();
         final String passwordTxt = password.getText().toString();
@@ -71,6 +89,17 @@ public class RegisterActivity extends AppCompatActivity {
         progBar.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * attempts to register the user.
+     * saves user login credentials before registration.
+     * if registration fails a toast pops up to let the user know.
+     *
+     * @param username the username
+     * @param password the password
+     * @param name the user's name
+     * @param email user's email
+     * @param icon user's selected icon
+     */
     private void doRegister(final String username, final String password, String name, String email, final int icon) {
         final boolean result = new RegisterRequest().attemptRegister(username, password, name, email, icon);
         runOnUiThread(new Runnable() {
@@ -95,6 +124,11 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * clears the fields.
+     *
+     * @param view the view
+     */
     public void clear(View view) {
         // clear all fields
         username.setText("");
@@ -105,6 +139,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     @Override
+    /**
+     * goes back to login activity when user presses back button on registration screen.
+     */
     public void onBackPressed() {
         Intent intent = new Intent(
                 RegisterActivity.this,

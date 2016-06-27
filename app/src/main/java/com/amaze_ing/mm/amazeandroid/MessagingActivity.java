@@ -1,31 +1,31 @@
 package com.amaze_ing.mm.amazeandroid;
+/**
+ * exe 4
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
+ */
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
-import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -43,9 +43,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * mAccel - acceleration apart from gravity
- * mAccelCurrent - current acceleration including gravity
- * mAccelLast - last acceleration including gravity
+ * The Messaging activity.
  */
 public class MessagingActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private EditText messageField;
@@ -64,6 +62,9 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     private NotificationCompat.Builder notificationBuilder;
     private int notificationID = 1;
 
+    /**
+     * The background broadcast receiver.
+     */
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -72,6 +73,9 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         }
     };
 
+    /**
+     * sensor listener for shaking.
+     */
     private final SensorEventListener mSensorListener = new SensorEventListener() {
         public void onSensorChanged(SensorEvent se) {
             float x = se.values[0];
@@ -92,6 +96,11 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
         public void onAccuracyChanged(Sensor sensor, int accuracy) {}
     };
 
+    /**
+     * fetches the editText, listview, initiliaze
+     *
+     * @param  savedInstanceState the application state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,17 +141,18 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                 stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         notificationBuilder.setContentIntent(resultPendingIntent);
-
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = notificationBuilder.build();
+
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         mNotificationManager.notify(notificationID, notification);
     }
 
     /**
+     * Send message.
      *
-     * @param view
+     * @param view the view
      */
     public void sendMessage(View view){
         // get message content
@@ -169,6 +179,9 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
      *
      */
     private void disconnect() {
+        // stop update service
+        unregisterReceiver(broadcastReceiver);
+        stopService(updateServiceIntent);
         // back to login activity
         Intent intent = new Intent(
                 MessagingActivity.this,
@@ -204,16 +217,6 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
     protected void onPause() {
         mSensorManager.unregisterListener(mSensorListener);
         super.onPause();
-    }
-
-    /**
-     *
-     */
-    @Override
-    protected void onDestroy() {
-        unregisterReceiver(broadcastReceiver);
-        stopService(updateServiceIntent);
-        super.onDestroy();
     }
 
     /**
@@ -325,6 +328,7 @@ public class MessagingActivity extends AppCompatActivity implements SwipeRefresh
                 }
             }
             catch (Exception e) {
+                System.out.println("fetch messages exception");
                 e.printStackTrace();
             }
             // update ListView

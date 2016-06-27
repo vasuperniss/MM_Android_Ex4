@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import com.amaze_ing.mm.amazeandroid.server_coms.LoginRequest;
 
+/**
+ * The type Splash screen activity.
+ */
 public class SplashScreenActivity extends AppCompatActivity {
 
     private TextView msgTxt;
@@ -24,6 +27,11 @@ public class SplashScreenActivity extends AppCompatActivity {
     private Thread updateThread;
     private Thread loadingThread;
 
+    /**
+     * fetches the starts two threads. One that loads the messages, and one to attempt a login.
+     *
+     * @param  savedInstanceState the application state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +79,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         this.isRunning = false;
     }
 
+    /**
+     * attempts to connect user using details saved in shared preferences.
+     */
     private void loadFilesAndConnect() {
         final String username = Utilities.fetchUsername(this);
         final String password = Utilities.fetchPassword(this);
@@ -78,6 +89,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         connnected = new LoginRequest().attemptLogin(username, password);
     }
 
+    /**
+     * updates messages in the splash screen.
+     *
+     * @param t the thread.
+     */
     private void update(Thread t) {
         int time = 0;
         try {
@@ -142,6 +158,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * decides to which screen should the user be forwarded to.
+     */
     private void switchToScreen(){
         Intent intent;
 
